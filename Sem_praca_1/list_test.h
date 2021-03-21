@@ -30,8 +30,7 @@ public:
 
 
 private:
-	List list_;
-
+	List<T> list_;
 
 	int counterAdd;
 	int tempAdd;

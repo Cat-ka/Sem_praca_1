@@ -45,9 +45,7 @@ int main() {
 
 
 	ListTest* testuj;
-
 	(*testuj).generating(1, 250);
-
 	(*testuj).mesaureTime();
 
 
