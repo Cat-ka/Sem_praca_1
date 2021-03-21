@@ -1,0 +1,62 @@
+#include <iostream>
+#include "list_test.h"
+
+using namespace structures;
+using namespace std;
+
+int main() {
+
+
+	cout << "Zaciatok" << endl;
+
+	int adt;
+	char scenar;
+	cout << "Zvolte cislo ADT pre testovanie: \n";
+	cout << "1. ArrayList \n";
+	cout << "2. LinkedList \n";
+	cout << "Vasa volba: ";
+	cin >> adt;
+	if (adt == 1) {
+		cout << "Chystate sa testovat ArrayList. \n";
+	}
+	else {
+		cout << "Chystate sa testovat LinkedList. \n";
+	}
+
+	cout << "Vyberte typ scenara na testovanie: \n";
+	cout << "A \n";
+	cout << "B \n";
+	cout << "C \n";
+	cout << "Vasa volba: ";
+	cin >> scenar;
+	scenar = tolower(scenar);
+	if (scenar == 'a' || scenar == 'b' || scenar == 'c') {
+		cout << "Pre testovanie ste vybrali scenar " << scenar << endl;
+	}
+	else {
+		do
+		{
+			cout << "Zadali ste nespravnu volbu. Zadajte hodnotu A, B alebo C pre vyber scenara " << scenar << endl;
+			cin >> scenar;
+			scenar = tolower(scenar);
+		} while (!scenar == 'a');
+		//nende to. while mi nikdy neöiel.... :(
+	}
+
+
+	ListTest* testuj;
+
+	(*testuj).generating(1, 250);
+
+	(*testuj).mesaureTime();
+
+
+	//testuj.option();
+
+
+	//mame vybranÈ Ëo chceme testovaù a podæa akÈho scÈnara adt a scenar
+
+
+
+	return 0;
+}
