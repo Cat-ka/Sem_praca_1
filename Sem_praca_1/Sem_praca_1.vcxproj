@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="list_test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="structures\ds_routines.cpp" />
     <ClCompile Include="structures\structure.cpp" />

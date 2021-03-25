@@ -7,11 +7,11 @@
       <FileName>ITest.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ListTest&lt;T&gt;">
+  <Class Name="ListTest">
     <Position X="5" Y="0.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAgEIARAABAAAKEACQAAQAIAAAABACAAAAAADADQAA=</HashCode>
-      <FileName>list_test.h</FileName>
+      <FileName>list_test1.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

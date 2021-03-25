@@ -17,10 +17,10 @@ int main() {
 	cout << "Vasa volba: ";
 	cin >> adt;
 	if (adt == 1) {
-		cout << "Chystate sa testovat ArrayList. \n";
+		cout << "Chystas sa testovat ArrayList. \n";
 	}
 	else {
-		cout << "Chystate sa testovat LinkedList. \n";
+		cout << "Chystas sa testovat LinkedList. \n";
 	}
 
 	cout << "Vyberte typ scenara na testovanie: \n";
@@ -39,22 +39,20 @@ int main() {
 			cout << "Zadali ste nespravnu volbu. Zadajte hodnotu A, B alebo C pre vyber scenara " << scenar << endl;
 			cin >> scenar;
 			scenar = tolower(scenar);
-		} while (!scenar == 'a');
+		} while (scenar != 'a' && scenar != 'b');
 		//nende to. while mi nikdy nešiel.... :(
 	}
 
+	//ListTest(List<int>* list)
 
-	ListTest* testuj;
-	(*testuj).generating(1, 250);
-	(*testuj).mesaureTime();
+	ListTest* testuj = new ListTest(new ArrayList<int>&);
 
-
+	testuj->generating(1, 250);
+	//(*testuj).generating(1, 250);
+	//(*testuj).mesaureTime()
 	//testuj.option();
-
-
+	
 	//mame vybrané èo chceme testova a pod¾a akého scénara adt a scenar
-
-
-
+	   
 	return 0;
 }

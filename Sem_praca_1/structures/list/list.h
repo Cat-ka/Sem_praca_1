@@ -4,7 +4,6 @@
 #include "../structure.h"
 #include "../structure_iterator.h"
 #include "../ds_structure_types.h"
-#include "../../ITest.h"
 
 namespace structures
 {
