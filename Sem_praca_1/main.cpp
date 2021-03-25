@@ -45,7 +45,7 @@ int main() {
 
 	//ListTest(List<int>* list)
 
-	ListTest* testuj = new ListTest(new ArrayList<int>&);
+	ListTest* testuj = new ListTest(new ArrayList<int>());
 
 	testuj->generating(1, 250);
 	//(*testuj).generating(1, 250);

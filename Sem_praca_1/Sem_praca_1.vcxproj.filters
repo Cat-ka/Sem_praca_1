@@ -50,11 +50,11 @@
     <ClCompile Include="structures\structure.cpp">
       <Filter>structures\common</Filter>
     </ClCompile>
+    <ClCompile Include="list_test.cpp">
+      <Filter>testing</Filter>
+    </ClCompile>
     <ClCompile Include="structures\vector\vector.cpp">
       <Filter>structures\vector</Filter>
-    </ClCompile>
-    <ClCompile Include="list_test.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,8 +115,17 @@
     <ClInclude Include="structures\queue\queue.h">
       <Filter>structures\queue</Filter>
     </ClInclude>
+    <ClInclude Include="ITest.h">
+      <Filter>testing</Filter>
+    </ClInclude>
+    <ClInclude Include="list_test.h">
+      <Filter>testing</Filter>
+    </ClInclude>
     <ClInclude Include="structures\vector\vector.h">
       <Filter>structures\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\array\array.h">
+      <Filter>structures\array</Filter>
     </ClInclude>
     <ClInclude Include="structures\list\array_list.h">
       <Filter>structures\list</Filter>
@@ -126,15 +135,6 @@
     </ClInclude>
     <ClInclude Include="structures\list\list.h">
       <Filter>structures\list</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\array\array.h">
-      <Filter>structures\array</Filter>
-    </ClInclude>
-    <ClInclude Include="ITest.h">
-      <Filter>testing</Filter>
-    </ClInclude>
-    <ClInclude Include="list_test.h">
-      <Filter>testing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

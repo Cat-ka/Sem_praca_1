@@ -111,7 +111,7 @@ namespace structures
 
 		/// <summary> Vymaze zoznam. </summary>
 		void clear() override;
-	
+
 		/// <summary> Vrati skutocny iterator na zaciatok struktury </summary>
 		/// <returns> Iterator na zaciatok struktury. </returns>
 		/// <remarks> Zabezpecuje polymorfizmus. </remarks>
@@ -171,14 +171,14 @@ namespace structures
 	};
 
 	template<typename T>
-	inline LinkedListItem<T>::LinkedListItem(T data):
+	inline LinkedListItem<T>::LinkedListItem(T data) :
 		DataItem<T>(data),
 		next_(nullptr)
 	{
 	}
 
 	template<typename T>
-	inline LinkedListItem<T>::LinkedListItem(const LinkedListItem<T>& other):
+	inline LinkedListItem<T>::LinkedListItem(const LinkedListItem<T>& other) :
 		DataItem<T>(other),
 		next_(other.next_)
 	{
@@ -189,21 +189,21 @@ namespace structures
 	{
 		next_ = nullptr;
 	}
-	
+
 	template<typename T>
-	inline LinkedListItem<T> * LinkedListItem<T>::getNext()
+	inline LinkedListItem<T>* LinkedListItem<T>::getNext()
 	{
 		return next_;
 	}
 
 	template<typename T>
-	inline void LinkedListItem<T>::setNext(LinkedListItem<T> * next)
+	inline void LinkedListItem<T>::setNext(LinkedListItem<T>* next)
 	{
 		next_ = next;
 	}
 
 	template<typename T>
-	inline LinkedList<T>::LinkedList():
+	inline LinkedList<T>::LinkedList() :
 		List(),
 		size_(0),
 		first_(nullptr),
@@ -212,21 +212,20 @@ namespace structures
 	}
 
 	template<typename T>
-	inline LinkedList<T>::LinkedList(const LinkedList<T>& other):
+	inline LinkedList<T>::LinkedList(const LinkedList<T>& other) :
 		LinkedList()
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::LinkedList: Not implemented yet.");
+		*this = other;
 	}
 
 	template<typename T>
 	inline LinkedList<T>::~LinkedList()
 	{
-		//TODO 04: LinkedList
+		this->clear();
 	}
 
 	template<typename T>
-	inline Structure * LinkedList<T>::clone() const
+	inline Structure* LinkedList<T>::clone() const
 	{
 		return new LinkedList<T>(*this);
 	}
@@ -250,26 +249,36 @@ namespace structures
 	template<typename T>
 	inline LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other)
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::operator=: Not implemented yet.");
+		if (this != &other)
+		{
+			this->clear();
+			//cyklus for each vyuûÌva iter·tor preto m· zloûitosù O(n)
+			for (T data : other) {
+				this->add(data);
+			}
+		}
+		return *this;
 	}
 
 	template<typename T>
-	inline T & LinkedList<T>::operator[](const int index)
+	inline T& LinkedList<T>::operator[](const int index)
 	{
+		DSRoutines::rangeCheckExcept(index, this->size_, "LinkedList<T>::operator[]: invalid index.");
 		LinkedListItem<T>* item = getItemAtIndex(index);
 		return item->accessData();
 	}
 
 	template<typename T>
 	inline const T LinkedList<T>::operator[](const int index) const
+		//const metÛda musÌ volaù len const metÛdy
 	{
+		DSRoutines::rangeCheckExcept(index, this->size_, "LinkedList<T>::operator[]: invalid index.");
 		LinkedListItem<T>* item = getItemAtIndex(index);
 		return item->accessData();
 	}
 
 	template<typename T>
-	inline void LinkedList<T>::add(const T & data)
+	inline void LinkedList<T>::add(const T& data)
 	{
 		LinkedListItem<T>* newItem = new LinkedListItem<T>(data);
 		if (this->size_ == 0) {
@@ -279,42 +288,82 @@ namespace structures
 		else {
 			this->last_->setNext(newItem);
 			this->last_ = newItem;
+			//najskÙr musÌm urobiù, aby posledn˝ ukazoval na ten nov˝ a potom z ten posledn˝ zmenÌm, aby sa nÌm stal ten nov˝ 
 		}
 		this->size_++;
 	}
 
 	template<typename T>
-	inline void LinkedList<T>::insert(const T & data, const int index)
+	inline void LinkedList<T>::insert(const T& data, const int index)
 	{
-		DSRoutines::rangeCheckExcept(index, size_, "LinkedList<T>::insert: invalid index.");
-		LinkedListItem<T>* newItem = new LinkedListItem<T>(data);
-		if (index == 0) {
-			newItem->setNext(first_);
-			this->first_ = newItem;
+		DSRoutines::rangeCheckExcept(index, size_ + 1, "LinkedList<T>::insert: invalid index.");
+		//ak vklad·m na koniec, ale je zoznam pr·zdny
+		if (index == this->size_) {
+			this->add(data);
 		}
 		else {
-
+			//utËite nevklad·m na koniec a urËite nie je zoznam pr·zdny
+			//uû m·m nastavenÈ first a lasta uû ju len modifikujem
+			LinkedListItem<T>* newItem = new LinkedListItem<T>(data);
+			if (index == 0) {
+				newItem->setNext(this->first_);
+				this->first_ = newItem;
+			}
+			else {
+				LinkedListItem<T>* prev = this->getItemAtIndex(index - 1);
+				newItem->setNext(prev->getNext());
+				prev->setNext(newItem);
+			}
+			this->size_++;
 		}
 	}
 
 	template<typename T>
-	inline bool LinkedList<T>::tryRemove(const T & data)
+	inline bool LinkedList<T>::tryRemove(const T& data)
 	{
 		//TODO 04: LinkedList
+		//zavolame metodu getindexof
+		//potom zavolame metodu remove at
+		//na domacu ulohu 
 		throw std::exception("LinkedList<T>::tryRemove: Not implemented yet.");
 	}
 
 	template<typename T>
 	inline T LinkedList<T>::removeAt(const int index)
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::removeAt: Not implemented yet.");
+		DSRoutines::rangeCheckExcept(index, this->size_, "LinkedList<T>::removeAt: invalid index.");
+		LinkedListItem<T>* remove = nullptr;
+
+		//odober·m z prvej pozÌcie prvok
+		if (index == 0) {
+			remove = this->first_;
+			LinkedListItem<T>* next = remove->getNext();
+			this->first_ = next;
+			//ak odober·m jedin˝ prvok, ktor˝ sa v liste nach·dza
+			if (this->size_ == 1) {
+				this->last_ = nullptr;
+			}
+		}
+		//odober·m z konca		
+		else {
+
+			LinkedListItem<T>* prev = this->getItemAtIndex(index - 1);
+			remove = prev->getNext();
+			prev->setNext(remove->getNext());
+			if (index == this->size_ - 1) {
+				this->last_ = prev;
+			}
+		}
+		T data = remove->accessData();
+		this->size_--;
+		delete remove;
+		return data;
 	}
 
 	template<typename T>
-	inline int LinkedList<T>::getIndexOf(const T & data)
+	inline int LinkedList<T>::getIndexOf(const T& data)
 	{
-		LinkedListItem<T>* result = first_;
+		LinkedListItem<T>* result = this->first_;
 		int index = 0;
 
 		//nepouûÌvam cyklus for, pretoûe for prebehne celÈ, ale viem to vyrieöiù breakom
@@ -334,8 +383,14 @@ namespace structures
 	template<typename T>
 	inline void LinkedList<T>::clear()
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::clear: Not implemented yet.");
+		LinkedListItem<T>* curr = this->first_;
+		while (curr != nullptr) {
+			curr = curr->getNext();
+			delete this->first_;
+			this->first_ = curr;
+		}
+		this->size_ = 0;
+		this->last_ = nullptr;
 	}
 
 	template<typename T>
@@ -355,7 +410,7 @@ namespace structures
 	{
 		DSRoutines::rangeCheckExcept(index, size_, "LinkedList<T>::getItemAtIndex: invalid index.");
 
-		LinkedListItem<T>* result = first_;
+		LinkedListItem<T>* result = this->first_;
 		for (int i = 0; i < index; i++)
 		{
 			result = result->getNext();
@@ -364,7 +419,7 @@ namespace structures
 	}
 
 	template<typename T>
-	inline LinkedList<T>::LinkedListIterator::LinkedListIterator( LinkedListItem<T> * position):
+	inline LinkedList<T>::LinkedListIterator::LinkedListIterator(LinkedListItem<T>* position) :
 		position_(position)
 	{
 	}
@@ -372,34 +427,44 @@ namespace structures
 	template<typename T>
 	inline LinkedList<T>::LinkedListIterator::~LinkedListIterator()
 	{
-		//TODO 04: LinkedList<T>::LinkedListIterator
+		this->position_ = nullptr;
 	}
 
 	template<typename T>
 	inline Iterator<T>& LinkedList<T>::LinkedListIterator::operator=(const Iterator<T>& other)
 	{
-		//TODO 04: LinkedList<T>::LinkedListIterator
-		throw std::exception("LinkedList<T>::LinkedListIterator::operator=: Not implemented yet.");
+		if (this != &other) {
+			this->position_ = dynamic_cast<const LinkedListIterator&>(other).position_;
+
+			//parameter other je iterator a potrebujem LinkedListIterator a preto musÌm pretypov
+		}
+		return *this;
 	}
 
 	template<typename T>
 	inline bool LinkedList<T>::LinkedListIterator::operator!=(const Iterator<T>& other)
 	{
-		//TODO 04: LinkedList<T>::LinkedListIterator
-		throw std::exception("LinkedList<T>::LinkedListIterator::operator!=: Not implemented yet.");
+		return this->position_ != dynamic_cast<const LinkedListIterator&>(other).position_;
+
+		//parameter other je iterator a potrebujem LinkedListIterator a preto musÌm pretypovaù - pouûijem 
+		//dynamic_cast, kde ho pretypujem na <const LinkedListIterator&>, aby som z neho dostal potomka
+		//a sprÌstupnÌm position
 	}
 
 	template<typename T>
 	inline const T LinkedList<T>::LinkedListIterator::operator*()
 	{
-		//TODO 04: LinkedList<T>::LinkedListIterator
-		throw std::exception("LinkedList<T>::LinkedListIterator::operator*: Not implemented yet.");
+		//toto nie je n·sobenie
+		//toto je sprÌstupnenie d·t, na ktorÈ iter·tor ukazuje
+		T data = this->position_->accessData();
+		return data;
 	}
 
 	template<typename T>
 	inline Iterator<T>& LinkedList<T>::LinkedListIterator::operator++()
 	{
-		//TODO 04: LinkedList<T>::LinkedListIterator
-		throw std::exception("LinkedList<T>::LinkedListIterator::operator++: Not implemented yet.");
+		this->position_ = this->position_->getNext();
+		return *this;
+		//musÌm vr·tiù ten objekt iter·tor ktor˝ som modifikoval a to je ten objekt this
 	}
 }

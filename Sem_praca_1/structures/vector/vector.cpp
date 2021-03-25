@@ -171,7 +171,6 @@ namespace structures {
 			memcpy(&dest, this->getBytePointer(index), count);
 			return dest;
 		}
-
 	}
 
 	void Vector::copy(const Vector& src, const int srcStartIndex, Vector& dest, const int destStartIndex, const int length)

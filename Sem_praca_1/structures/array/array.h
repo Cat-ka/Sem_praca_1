@@ -167,7 +167,7 @@ namespace structures
 	{
 		DSRoutines::rangeCheckExcept(index, this->size_, "Array<T>::operator[]: invalid index");
 		int vectorIndex = this->mapFunction(index);
-		return *reinterpret_cast<T*>(this->vector_->getBytePointer(vectorIndex));
+		return = *reinterpret_cast<T*>(this->vector_->getBytePointer(vectorIndex));
 
 		//môeme to napísa aj takto, pretoe tu vraciam kópiu a nám nevadí e to 
 		//priradíme do lokálnej premmenej, ale kvôli rıchlosti to tak neurobím

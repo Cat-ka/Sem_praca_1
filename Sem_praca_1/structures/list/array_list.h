@@ -237,7 +237,7 @@ namespace structures
 
 		//tým že tam dáme *, urobíme zo smerníka array_ objekt dereferenciou a môžeme použi
 		//operátor[]
-		(*this->array_)[this->size_] = data;
+		(*this->array_)[static_cast<int>(this->size_)] = data;
 		this->size_++;
 	}
 
@@ -252,7 +252,7 @@ namespace structures
 			if (this->size_ == this->array_->size()) {
 				this->enlarge();
 			}
-			Array<T>::copy(*this->array_, index, *this->array_, index + 1, this->size_ - index);
+			Array<T>::copy(*this->array_, index, *this->array_, index + 1, static_cast<int>(this->size_) - index);
 			(*this->array_)[index] = data;
 			this->size_ = this->size_ + 1;
 		}	
@@ -276,7 +276,7 @@ namespace structures
 	{
 		DSRoutines::rangeCheckExcept(index, this->size_, "ArrayList<T>::removeAt: invalid index.");
 		T removed = (*this->array_)[index];
-		Array<T>::copy(*this->array_, index + 1, *this->array_, index, this->size_ - index - 1);
+		Array<T>::copy(*this->array_, index + 1, *this->array_, index, static_cast<int>(this->size_) - index - 1);
 		this->size_ = this->size_ - 1;
 		return removed;
 	}
@@ -311,7 +311,7 @@ namespace structures
 	template<typename T>
 	inline Iterator<T>* ArrayList<T>::getEndIterator() const
 	{
-		return new ArrayListIterator(this, this->size_);
+		return new ArrayListIterator(this, static_cast<int>(this->size_));
 		//tu je size_, aby ukazoval na prvú neplatnú adresu 
 	}
 
@@ -330,7 +330,7 @@ namespace structures
 
 			//funkcia copy je statická, preto ju vyvolávam nad triedovu
 			//prekopíruje nám aktuálny array do nami novo vytvoreného
-			Array<T>::copy(*this->array_, 0, *tmp, 0, this->size_);
+			Array<T>::copy(*this->array_, 0, *tmp, 0, static_cast<int>(this->size_));
 			delete this->array_;
 			this->array_ = tmp;
 			//smernik sme presmerovali na nové pole 
