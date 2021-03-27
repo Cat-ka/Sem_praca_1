@@ -1,31 +1,32 @@
 #pragma once
 
-#include "structures/list/array_list.h"
-#include "structures/list/linked_list.h"
-#include "structures/list/list.h"
 #include <random>
 #include <iostream>
 #include <chrono>
 #include <ctime>
 
+//using namespace std::chrono
+
 template<typename T>
 class ITest {
-public:	
+public:
 	ITest();
-	virtual ~ITest();
+	~ITest();
 
-	virtual int setOperation() = 0;
-	virtual void setOption(char& scenario) = 0;
+	//int setOperation() override;
 
-	virtual void runTesting() = 0;
-	virtual int generating(int& min, int& max) const = 0;
 
-	virtual void add() = 0;
-	virtual void remove() = 0;
-	virtual void set() = 0;
-	virtual void index() = 0;
+	//void runTesting() override;
+	int generating(int min, int max);
+	//void odmerajTrvanieOperacie();
+
+	//void add() override;
+	//void remove() override;
+	//void set() override;
+//	void index() override;
+
 protected:
-	
+
 };
 
 
@@ -38,4 +39,24 @@ template<typename T>
 inline ITest<T>::~ITest()
 {
 }
+
+template<typename T>
+inline int ITest<T>::generating(int min, int max)
+{
+	//unsigned seed1 = std::chrono::system_clock::now().time_since_epoch().count();
+	//std::minstd_rand0 g1(seed1);  // minstd_rand0 is a standard linear_congruential_engine
+	//int result = g1() % max + min;
+	//std::cout << "A time seed produced: " << result << std::endl;
+	//return 0;
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dis(min, max);
+	int genNumber = dis(gen);
+	std::cout << "Generovane cislo: " << genNumber << std::endl;
+	return genNumber;
+}
+
+
+
 

@@ -331,33 +331,38 @@ namespace structures
 	template<typename T>
 	inline T LinkedList<T>::removeAt(const int index)
 	{
-		DSRoutines::rangeCheckExcept(index, this->size_, "LinkedList<T>::removeAt: invalid index.");
-		LinkedListItem<T>* remove = nullptr;
+		if (this->size_ != 0) {
+			DSRoutines::rangeCheckExcept(index, this->size_, "LinkedList<T>::removeAt: invalid index.");
+			LinkedListItem<T>* remove = nullptr;
 
-		//odoberám z prvej pozície prvok
-		if (index == 0) {
-			remove = this->first_;
-			LinkedListItem<T>* next = remove->getNext();
-			this->first_ = next;
-			//ak odoberám jediný prvok, ktorý sa v liste nachádza
-			if (this->size_ == 1) {
-				this->last_ = nullptr;
+			//odoberám z prvej pozície prvok
+			if (index == 0) {
+				remove = this->first_;
+				LinkedListItem<T>* next = remove->getNext();
+				this->first_ = next;
+				//ak odoberám jediný prvok, ktorý sa v liste nachádza
+				if (this->size_ == 1) {
+					this->last_ = nullptr;
+				}
 			}
+			//odoberám z konca		
+			else {
+
+				LinkedListItem<T>* prev = this->getItemAtIndex(index - 1);
+				remove = prev->getNext();
+				prev->setNext(remove->getNext());
+				if (index == this->size_ - 1) {
+					this->last_ = prev;
+				}
+			}
+			T data = remove->accessData();
+			this->size_--;
+			delete remove;
+			return data;
 		}
-		//odoberám z konca		
 		else {
-
-			LinkedListItem<T>* prev = this->getItemAtIndex(index - 1);
-			remove = prev->getNext();
-			prev->setNext(remove->getNext());
-			if (index == this->size_ - 1) {
-				this->last_ = prev;
-			}
+			cout << "The list is empty. Nothing to delete." << endl;
 		}
-		T data = remove->accessData();
-		this->size_--;
-		delete remove;
-		return data;
 	}
 
 	template<typename T>

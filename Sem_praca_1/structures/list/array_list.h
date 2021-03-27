@@ -211,7 +211,7 @@ namespace structures
 	template<typename T>
 	inline T& ArrayList<T>::operator[](const int index)
 	{
-		DSRoutines::rangeCheckExcept(index, this->size_, "ArrayList<T>::operator[]: invalid index.");
+		DSRoutines::rangeCheckExcept(index, this->size_, "T& ArrayList<T>::operator[]: invalid index.");
 		//vraciam originál a zase musím dereferencova, aby som dostala objekt, lebo array_ je pointer
 		//pomocou tohto vieme zapisova a aj èíta
 		return (*this->array_)[index];
@@ -220,7 +220,7 @@ namespace structures
 	template<typename T>
 	inline const T ArrayList<T>::operator[](const int index) const
 	{
-		DSRoutines::rangeCheckExcept(index, this->size_, "ArrayList<T>::operator[]: invalid index.");
+		DSRoutines::rangeCheckExcept(index, this->size_, "T ArrayList<T>::operator[]: invalid index.");
 		//tu nie je referencia &, preto vraciam kópiu
 		//pomocou tohto vieme len èíta
 		return (*this->array_)[index];
@@ -243,7 +243,7 @@ namespace structures
 
 	template<typename T>
 	inline void ArrayList<T>::insert(const T& data, const int index)
-	{		
+	{
 		if (index == this->size_) {
 			add(data);
 		}
@@ -255,7 +255,7 @@ namespace structures
 			Array<T>::copy(*this->array_, index, *this->array_, index + 1, static_cast<int>(this->size_) - index);
 			(*this->array_)[index] = data;
 			this->size_ = this->size_ + 1;
-		}	
+		}
 	}
 
 	template<typename T>
@@ -274,11 +274,16 @@ namespace structures
 	template<typename T>
 	inline T ArrayList<T>::removeAt(const int index)
 	{
-		DSRoutines::rangeCheckExcept(index, this->size_, "ArrayList<T>::removeAt: invalid index.");
-		T removed = (*this->array_)[index];
-		Array<T>::copy(*this->array_, index + 1, *this->array_, index, static_cast<int>(this->size_) - index - 1);
-		this->size_ = this->size_ - 1;
-		return removed;
+		if (this->size_ != 0) {
+			//DSRoutines::rangeCheckExcept(index, this->size_, "ArrayList<T>::removeAt: invalid index.");
+			T removed = (*this->array_)[index];
+			Array<T>::copy(*this->array_, index + 1, *this->array_, index, static_cast<int>(this->size_) - index - 1);
+			this->size_ = this->size_ - 1;
+			return removed;
+		}
+		else {
+			cout << "The list is empty. Nothing to delete." << endl;
+		}
 	}
 
 	template<typename T>

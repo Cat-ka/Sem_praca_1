@@ -56,6 +56,9 @@
     <ClCompile Include="structures\vector\vector.cpp">
       <Filter>structures\vector</Filter>
     </ClCompile>
+    <ClCompile Include="scenario.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structures\ds_routines.h">
@@ -135,6 +138,9 @@
     </ClInclude>
     <ClInclude Include="structures\list\list.h">
       <Filter>structures\list</Filter>
+    </ClInclude>
+    <ClInclude Include="scenario.h">
+      <Filter>testing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

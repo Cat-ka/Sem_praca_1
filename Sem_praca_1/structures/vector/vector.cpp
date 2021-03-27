@@ -157,20 +157,19 @@ namespace structures {
 		//keby posielam kopiu (že neposlem cez & ale cez *) tak sa mi v pamäti vytvorí lokálna kópia, 
 		// a ten blok pamäte 
 		//po skonèení funkcie prestane existova
+		
+		//DSRoutines::rangeCheckExcept(index, size_, "Vector::readBytes: Invalid index!");
+		//toto nemusím, lebo toto mám ošetrené cez getBytePoiner
 
-		if (count > 0)
-		{
-			//DSRoutines::rangeCheckExcept(index, size_, "Vector::readBytes: Invalid index!");
-			//toto nemusím, lebo toto mám ošetrené cez getBytePoiner
-			DSRoutines::rangeCheckExcept(index + count, size_ + 1, "Vector::readBytes: Invalid count!");
-			//dávam tam - 1, lebo potrebujem kontrolova posledný bajt, ktorý kontrolujem a index + count mi dá index, 
-			//ktorý už nebudem kopírova
-			//prípadne môžem da inú variantu a to, size_ + 1 => toto je bezpeènejšie, pretože ak by bol index aj count 0, 
-			//tak by som dostala -1
-			//vieme to ošetri tým, že sa opýtame èi count > 0 (dala som to do ifu)
-			memcpy(&dest, this->getBytePointer(index), count);
-			return dest;
-		}
+		DSRoutines::rangeCheckExcept(index + count, size_ + 1, "Vector::readBytes: Invalid count!");
+		//dávam tam - 1, lebo potrebujem kontrolova posledný bajt, ktorý kontrolujem a index + count mi dá index, 
+		//ktorý už nebudem kopírova
+		//prípadne môžem da inú variantu a to, size_ + 1 => toto je bezpeènejšie, pretože ak by bol index aj count 0, 
+		//tak by som dostala -1
+		//vieme to ošetri tým, že sa opýtame èi count > 0 (dala som to do ifu)
+		memcpy(&dest, this->getBytePointer(index), count);
+		return dest;
+
 	}
 
 	void Vector::copy(const Vector& src, const int srcStartIndex, Vector& dest, const int destStartIndex, const int length)
@@ -196,7 +195,7 @@ namespace structures {
 		DSRoutines::rangeCheckExcept(index, size_, "Vector::getBytePointer: invalid index.");
 		return reinterpret_cast<byte*>(memory_) + index;
 		//return &reinterpret_cast<byte*>(memory_)[index];
-		
+
 		//v tejto funkcii pošlem ako parameter niektorý bajt z vektoru a táto funkcia mi vráti adresu
 		//na ktorej sa ten môj požadovaný bajt nachádza
 		//získam adresu požadovaného bajtu tak že pripoèítam index k zaèiatku mojej memory ktorá ukazuje 

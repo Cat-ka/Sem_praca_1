@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="list_test.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="scenario.cpp" />
     <ClCompile Include="structures\ds_routines.cpp" />
     <ClCompile Include="structures\structure.cpp" />
     <ClCompile Include="structures\vector\vector.cpp" />
@@ -147,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="ITest.h" />
     <ClInclude Include="list_test.h" />
+    <ClInclude Include="scenario.h" />
     <ClInclude Include="structures\array\array.h" />
     <ClInclude Include="structures\ds_routines.h" />
     <ClInclude Include="structures\ds_structure_types.h" />

@@ -1,153 +1,251 @@
 #include "list_test.h"
 
+using namespace std::chrono;
 
-ListTest::ListTest(List<int>& list)
+
+
+ListTest::ListTest(int atd)
 {
-	list_ = &list;
+	if (atd = 1) {
+		list_ = new ArrayList<int>();
+	}
+	else if (atd = 2)
+	{
+		list_ = new LinkedList<int>();
+	}
+	//list_ = &list;
+
+}
+
+ListTest::ListTest()
+{
 	tempAdd = 0;
 	tempRemove = 0;
 	tempSet = 0;
 	tempIndex = 0;
 }
 
+
+
 ListTest::~ListTest()
 {
 }
 
-int ListTest::setOperation()
-{
-	return 0;
-}
 
-void ListTest::setOption(char& scenario)
+void ListTest::runTesting(char& scenario)
 {
-	//je lepšie to ma takto? alebo urobi pre každý scénar samostatne funkciu
-	if (scenario == 'a') {
-		this->counterAdd = 20000;
-		this->counterRemove = 20000;
-		this->counterSet = 50000;
-		this->counterIndex = 10000;
-		cout << counterAdd << ", " << counterRemove << ", " << counterSet << ", " << counterIndex;
-	}
-	else if (scenario == 'b')
+	int pocetOpakovani = 1000;
+	int cAdd = s.ifCounterAdd(scenario);
+	int cRem = s.ifCounterRemove(scenario);
+	int cSet = s.ifCounterSet(scenario);
+	int cInd = s.ifCounterIndex(scenario);
+
+	for (int i = 0; i < pocetOpakovani; i++)
 	{
-		this->counterAdd = 35000;
-		this->counterRemove = 35000;
-		this->counterSet = 20000;
-		this->counterIndex = 10000;
-	}
-	else if (scenario == 'c') {
-		this->counterAdd = 45000;
-		this->counterRemove = 45000;
-		this->counterSet = 5000;
-		this->counterIndex = 5000;
-	}
-}
+		int pocetOperacii = generating(1, 100);
 
-void ListTest::runTesting()
-{
-	//20 vloz prvy, vloz posledny, vloz na index
-	//add, insert
-
-	//20 zrus prvy, zrus posledny, zrus na indexe
-	//removeAt
-
-	//50 spristupni, nastav
-	//operator= operator[]
-
-	//10 index prvku 
-	//getIndexOf
-
-	for (int i = 0; i < 1000000; i++)
-	{
-		
-		int temp = generating(1, 100);
-		if (temp < counterAdd / 1000) {
+		if ((pocetOperacii < cAdd) && (tempAdd <= (pocetOpakovani / 100 * cAdd))) {
 			tempAdd++;
-			if (tempAdd <= counterAdd) {
-				add();
-			}
+			add();
 		}
-		else if (temp < (counterAdd + counterRemove) / 1000) {
+		else if (pocetOperacii < (cAdd + cRem)) {
 			tempRemove++;
-			if (tempRemove <= counterRemove) {
+			if (tempRemove <= (pocetOpakovani / 100 * cRem)) {
 				remove();
 			}
 		}
-		else if (temp < (counterAdd + counterRemove + counterSet) / 1000) {
+		else if (pocetOperacii < (cAdd + cRem + cSet)) {
 			tempSet++;
-			if (tempSet <= counterSet) {
+			if (tempSet <= (pocetOpakovani / 100 * cSet)) {
 				set();
 			}
 		}
 		else {
 			tempIndex++;
-			if (tempIndex < counterIndex) {
+			if (tempIndex <= (pocetOpakovani / 100 * cInd)) {
 				index();
 			}
 		}
+
 	}
+
 }
 
-int ListTest::generating(int min, int max)
-{
-	//unsigned seed1 = std::chrono::system_clock::now().time_since_epoch().count();
-	//std::minstd_rand0 g1(seed1);  // minstd_rand0 is a standard linear_congruential_engine
-	//int result = g1() % max + min;
-	//std::cout << "A time seed produced: " << result << std::endl;
-
-	//return 0;
-
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> dis(min, max);
-	int genNumber = dis(gen);
-	std::cout << genNumber << std::endl;
-	return genNumber;
-}
 
 void ListTest::add()
 {
-	cout << "Idem pridavat.";
+
 	int temp = this->generating(0, 2);
 	int data = this->generating(0, 100);
-	switch (temp) {
+	string operation;
+	std::chrono::steady_clock::time_point start;
+	std::chrono::steady_clock::time_point stop;
+	std::chrono::nanoseconds duration;
+	int actualSize = 0;
+	start = high_resolution_clock::now();
+	switch (temp)
+	{
 	case 0:
-
 		this->list_->add(data);
+		operation = "add_end";
 		break;
 	case 1:
 		this->list_->insert(data, 0);
+		operation = "add_begin";
 		break;
 	default:
 		this->list_->insert(data, this->list_->size());
+		operation = "add_on_index";
 		break;
 	}
+	stop = high_resolution_clock::now();
+	duration = duration_cast<nanoseconds>(stop - start);
+	actualSize = this->list_->size();
+	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	string nazov = "pridavanie.csv";
+	zapis(nazov, operation, duration.count(), actualSize);
 }
 
 void ListTest::remove()
 {
-	this->generating(0, 2);
-	//pri mazaní budem generova index ktorý budem maza od 0 po size
+	int temp = this->generating(0, 2);
+	std::chrono::steady_clock::time_point start;
+	std::chrono::steady_clock::time_point stop;
+	std::chrono::nanoseconds duration;
+	int actualSize = this->list_->size();
+	switch (temp) {
+	case 0:
+		start = high_resolution_clock::now();
+		this->list_->removeAt(0);
+		stop = high_resolution_clock::now();
+		duration = duration_cast<nanoseconds>(stop - start);
+		actualSize = this->list_->size();
+		cout << "F: remove_begin, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+		break;
+	case 1:
+		start = high_resolution_clock::now();
+		//if (actualSize > 0) {
+		this->list_->removeAt(this->list_->size() - 1);
+		//}
+		stop = high_resolution_clock::now();
+		duration = duration_cast<nanoseconds>(stop - start);
+		actualSize = this->list_->size();
+		cout << "F: remove_end, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+		break;
+	default:
+		start = high_resolution_clock::now();
+		int index;
+		if (actualSize > 0) {
+			index = this->generating(0, actualSize - 1);
+		}
+		else {
+			index = 0;
+		}
+		this->list_->removeAt(index);
+		stop = high_resolution_clock::now();
+		duration = duration_cast<nanoseconds>(stop - start);
+		actualSize = this->list_->size();
+		cout << "F: remove_on_index, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+		break;
+	}
 }
 
 void ListTest::set()
 {
-	this->generating(0, 1);
+	int temp = this->generating(0, 1);
+	int data = this->generating(0, 100);
+	int index;
+	if (this->list_->size() > 0) {
+		index = this->generating(0, this->list_->size() - 1);
+	}
+	else {
+		index = 0;
+	}
+	std::chrono::steady_clock::time_point start;
+	std::chrono::steady_clock::time_point stop;
+	std::chrono::nanoseconds duration;
+	int actualSize = this->list_->size();
+	switch (temp) {
+	case 0:
+		start = high_resolution_clock::now();
+		if (actualSize > 0) {
+			this->list_[index];
+		}
+		stop = high_resolution_clock::now();
+		duration = duration_cast<nanoseconds>(stop - start);
+		actualSize = this->list_->size();
+		cout << "F: set_spristupni, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+		break;
+	default:
+		start = high_resolution_clock::now();
+		if (actualSize > 0) {
+			(*this->list_)[index] = data;
+		}
+		stop = high_resolution_clock::now();
+		duration = duration_cast<nanoseconds>(stop - start);
+		actualSize = this->list_->size();
+		cout << "F: set_nastav, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+		break;
+	}
 }
 
 void ListTest::index()
 {
+	int data = this->generating(0, 100);
+	int index = this->generating(0, this->list_->size());
+	std::chrono::steady_clock::time_point start;
+	std::chrono::steady_clock::time_point stop;
+	std::chrono::nanoseconds duration;
+	int actualSize = this->list_->size();
+
+	start = high_resolution_clock::now();
+	if (actualSize > 0) {
+		this->list_->getIndexOf(data);
+	}
+	stop = high_resolution_clock::now();
+	duration = duration_cast<nanoseconds>(stop - start);
+	actualSize = this->list_->size();
+	cout << "F: index, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+
 }
 
-void ListTest::mesaureTime()
+List<int>& ListTest::vyberADT(int adt)
+{
+	if (adt == 1) {
+		list_ = new ArrayList<int>();
+		cout << "Chystas sa testovat ArrayList. \n" << endl;
+		return *list_;
+	}
+	else if (adt == 2) {
+		list_ = new LinkedList<int>();
+		cout << "Chystas sa testovat LinkedList. \n" << endl;
+		return *list_;
+	}
+}
+
+void ListTest::zapis(string fileName, string operation, double trvanie, int sizeOf)
+{
+	ofstream file;
+	file.open(fileName, ios_base::app);
+	file << operation << ", " << trvanie << ", " << sizeOf << endl;
+	file.close();
+
+}
+
+
+
+void ListTest::measureTimeStart()
 {
 	// Using time point and system_clock 
 	std::chrono::time_point<std::chrono::system_clock> start, end;
-
 	start = std::chrono::system_clock::now();
-	int cislo = generating(1, 250);
-	std::cout << "generujem = " << cislo << '\n';
+
+}
+
+void ListTest::measureTimeStop() {
+	// Using time point and system_clock 
+	std::chrono::time_point<std::chrono::system_clock> start, end;
+
 	end = std::chrono::system_clock::now();
 
 	std::chrono::duration<double> elapsed_seconds = end - start;
