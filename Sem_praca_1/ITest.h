@@ -38,7 +38,7 @@ inline int ITest<T>::generating(int min, int max)
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> dis(min, max);
 	int genNumber = dis(gen);
-	std::cout << "Generovane cislo: " << genNumber << std::endl;
+	//std::cout << "Generovane cislo: " << genNumber << std::endl;
 	return genNumber;
 }
 

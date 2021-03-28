@@ -27,30 +27,33 @@ namespace structures
 		/// <summary> Getter nasledujuceho prvku zretazeneho zoznamu. </summary>
 		/// <returns> Nasledujuci prvok zretazeneho zoznamu. </returns>
 		LinkedListItem<T>* getNext();
+		LinkedListItem<T>* getPrev();
 
 		/// <summary> Setter nasledujuceho prvku zretazeneho zoznamu. </summary>
-		/// <param name¥= "next"> Novy nasledujuci prvok zretazeneho zoznamu. </param>
+		/// <param name¬¥= "next"> Novy nasledujuci prvok zretazeneho zoznamu. </param>
 		void setNext(LinkedListItem<T>* next);
+		void setPrev(LinkedListItem<T>* prev);
 	private:
 		/// <summary> Nasledujuci prvok zretazeneho zoznamu. </summary>
 		LinkedListItem<T>* next_;
+		LinkedListItem<T>* prev_;
 	};
 
 	/// <summary> Jednostranne zretazeny zoznam. </summary>
 	/// <typeparam name = "T"> Typ dat ukladanych v zozname. </typepram>
 	template<typename T>
-	class LinkedList : public List<T>
+	class DoubleLinkedList : public List<T>
 	{
 	public:
 		/// <summary> Konstruktor. </summary>
-		LinkedList();
+		DoubleLinkedList();
 
 		/// <summary> Kopirovaci konstruktor. </summary>
-		/// <param name = "other"> LinkedList, z ktoreho sa prevezmu vlastnosti. </param>
-		LinkedList(const LinkedList<T>& other);
+		/// <param name = "other"> DoubleLinkedList, z ktoreho sa prevezmu vlastnosti. </param>
+		DoubleLinkedList(const DoubleLinkedList<T>& other);
 
 		/// <summary> Destruktor. </summary>
-		~LinkedList();
+		~DoubleLinkedList();
 
 		/// <summary> Operacia klonovania. Vytvori a vrati duplikat zoznamu. </summary>
 		/// <returns> Ukazovatel na klon struktury. </returns>
@@ -68,7 +71,7 @@ namespace structures
 		/// <summary> Operator priradenia. </summary>
 		/// <param name = "other"> Zoznam, z ktoreho ma prebrat vlastnosti. </param>
 		/// <returns> Adresa, na ktorej sa tento zoznam nachadza po priradeni. </returns>
-		LinkedList<T>& operator=(const LinkedList<T>& other);
+		DoubleLinkedList<T>& operator=(const DoubleLinkedList<T>& other);
 
 		/// <summary> Vrati adresou prvok na indexe. </summary>
 		/// <param name = "index"> Index prvku. </param>
@@ -135,7 +138,7 @@ namespace structures
 		/// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do zoznamu. </exception>  
 		LinkedListItem<T>* getItemAtIndex(int index) const;
 	private:
-		/// <summary> Iterator pre LinkedList. </summary>
+		/// <summary> Iterator pre DoubleLinkedList. </summary>
 		class LinkedListIterator : public Iterator<T>
 		{
 		public:
@@ -173,14 +176,16 @@ namespace structures
 	template<typename T>
 	inline LinkedListItem<T>::LinkedListItem(T data) :
 		DataItem<T>(data),
-		next_(nullptr)
+		next_(nullptr),
+		prev_(nullptr)
 	{
 	}
 
 	template<typename T>
 	inline LinkedListItem<T>::LinkedListItem(const LinkedListItem<T>& other) :
 		DataItem<T>(other),
-		next_(other.next_)
+		next_(other.next_),
+		prev_(other.prev_)
 	{
 	}
 
@@ -188,6 +193,7 @@ namespace structures
 	inline LinkedListItem<T>::~LinkedListItem()
 	{
 		next_ = nullptr;
+		prev_ = nullptr;
 	}
 
 	template<typename T>
@@ -203,7 +209,19 @@ namespace structures
 	}
 
 	template<typename T>
-	inline LinkedList<T>::LinkedList() :
+	inline LinkedListItem<T>* LinkedListItem<T>::getPrev()
+	{
+		return prev_;
+	}
+
+	template<typename T>
+	inline void LinkedListItem<T>::setPrev(LinkedListItem<T>* prev)
+	{
+		prev_ = prev;
+	}
+
+	template<typename T>
+	inline DoubleLinkedList<T>::DoubleLinkedList() :
 		List(),
 		size_(0),
 		first_(nullptr),
@@ -212,47 +230,47 @@ namespace structures
 	}
 
 	template<typename T>
-	inline LinkedList<T>::LinkedList(const LinkedList<T>& other) :
-		LinkedList()
+	inline DoubleLinkedList<T>::DoubleLinkedList(const DoubleLinkedList<T>& other) :
+		DoubleLinkedList()
 	{
 		*this = other;
 	}
 
 	template<typename T>
-	inline LinkedList<T>::~LinkedList()
+	inline DoubleLinkedList<T>::~DoubleLinkedList()
 	{
 		this->clear();
 	}
 
 	template<typename T>
-	inline Structure* LinkedList<T>::clone() const
+	inline Structure* DoubleLinkedList<T>::clone() const
 	{
-		return new LinkedList<T>(*this);
+		return new DoubleLinkedList<T>(*this);
 	}
 
 	template<typename T>
-	inline size_t LinkedList<T>::size() const
+	inline size_t DoubleLinkedList<T>::size() const
 	{
 		return size_;
 	}
 
 	template<typename T>
-	inline List<T>& LinkedList<T>::operator=(const List<T>& other)
+	inline List<T>& DoubleLinkedList<T>::operator=(const List<T>& other)
 	{
 		if (this != &other)
 		{
-			*this = dynamic_cast<const LinkedList<T>&>(other);
+			*this = dynamic_cast<const DoubleLinkedList<T>&>(other);
 		}
 		return *this;
 	}
 
 	template<typename T>
-	inline LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other)
+	inline DoubleLinkedList<T>& DoubleLinkedList<T>::operator=(const DoubleLinkedList<T>& other)
 	{
 		if (this != &other)
 		{
 			this->clear();
-			//cyklus for each vyuûÌva iter·tor preto m· zloûitosù O(n)
+			//cyklus for each vyu≈æ√≠va iter√°tor preto m√° zlo≈æitos≈• O(n)
 			for (T data : other) {
 				this->add(data);
 			}
@@ -261,96 +279,111 @@ namespace structures
 	}
 
 	template<typename T>
-	inline T& LinkedList<T>::operator[](const int index)
+	inline T& DoubleLinkedList<T>::operator[](const int index)
 	{
-		DSRoutines::rangeCheckExcept(index, this->size_, "LinkedList<T>::operator[]: invalid index.");
+		DSRoutines::rangeCheckExcept(index, this->size_, "DoubleLinkedList<T>::operator[]: invalid index.");
 		LinkedListItem<T>* item = getItemAtIndex(index);
 		return item->accessData();
 	}
 
 	template<typename T>
-	inline const T LinkedList<T>::operator[](const int index) const
-		//const metÛda musÌ volaù len const metÛdy
+	inline const T DoubleLinkedList<T>::operator[](const int index) const
+		//const met√≥da mus√≠ vola≈• len const met√≥dy
 	{
-		DSRoutines::rangeCheckExcept(index, this->size_, "LinkedList<T>::operator[]: invalid index.");
+		DSRoutines::rangeCheckExcept(index, this->size_, "DoubleLinkedList<T>::operator[]: invalid index.");
 		LinkedListItem<T>* item = getItemAtIndex(index);
 		return item->accessData();
 	}
 
 	template<typename T>
-	inline void LinkedList<T>::add(const T& data)
+	inline void DoubleLinkedList<T>::add(const T& data)
 	{
 		LinkedListItem<T>* newItem = new LinkedListItem<T>(data);
 		if (this->size_ == 0) {
 			this->first_ = newItem;
 			this->last_ = newItem;
+			newItem->prev_ = nullptr;
+			newItem->next_ = nullptr;
 		}
 		else {
+			newItem->setPrev(this->last_);
+			newItem->setNext = nullptr;
 			this->last_->setNext(newItem);
 			this->last_ = newItem;
-			//najskÙr musÌm urobiù, aby posledn˝ ukazoval na ten nov˝ a potom z ten posledn˝ zmenÌm, aby sa nÌm stal ten nov˝ 
-		}
+			
+			//najsk√¥r mus√≠m urobi≈•, aby posledn√Ω ukazoval na ten nov√Ω a potom z ten posledn√Ω zmen√≠m, aby sa n√≠m stal ten nov√Ω 
+		}		
 		this->size_++;
 	}
 
 	template<typename T>
-	inline void LinkedList<T>::insert(const T& data, const int index)
+	inline void DoubleLinkedList<T>::insert(const T& data, const int index)
 	{
-		DSRoutines::rangeCheckExcept(index, size_ + 1, "LinkedList<T>::insert: invalid index.");
-		//ak vklad·m na koniec, ale je zoznam pr·zdny
+		DSRoutines::rangeCheckExcept(index, size_ + 1, "DoubleLinkedList<T>::insert: invalid index.");
+		//ak vklad√°m na koniec, ale je zoznam pr√°zdny
 		if (index == this->size_) {
 			this->add(data);
 		}
 		else {
-			//utËite nevklad·m na koniec a urËite nie je zoznam pr·zdny
-			//uû m·m nastavenÈ first a lasta uû ju len modifikujem
+			//utƒçite nevklad√°m na koniec a urƒçite nie je zoznam pr√°zdny
+			//u≈æ m√°m nastaven√© first a lasta u≈æ ju len modifikujem
 			LinkedListItem<T>* newItem = new LinkedListItem<T>(data);
 			if (index == 0) {
 				newItem->setNext(this->first_);
+				this->first_->setPrev(newItem);
 				this->first_ = newItem;
 			}
 			else {
 				LinkedListItem<T>* prev = this->getItemAtIndex(index - 1);
+				LinkedListItem<T>* next = this->getItemAtIndex(index + 1);
 				newItem->setNext(prev->getNext());
 				prev->setNext(newItem);
+				newItem->setPrev(prev);
+				next->setPrev(newItem);
 			}
 			this->size_++;
 		}
 	}
 
 	template<typename T>
-	inline bool LinkedList<T>::tryRemove(const T& data)
+	inline bool DoubleLinkedList<T>::tryRemove(const T& data)
 	{
-		//TODO 04: LinkedList
-		//zavolame metodu getindexof
-		//potom zavolame metodu remove at
-		//na domacu ulohu 
-		throw std::exception("LinkedList<T>::tryRemove: Not implemented yet.");
+		int temp = this->getIndexOf(data);
+		if (temp > -1) {
+			this->removeAt(temp);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	template<typename T>
-	inline T LinkedList<T>::removeAt(const int index)
+	inline T DoubleLinkedList<T>::removeAt(const int index)
 	{
 		if (this->size_ != 0) {
-			DSRoutines::rangeCheckExcept(index, this->size_, "LinkedList<T>::removeAt: invalid index.");
+			DSRoutines::rangeCheckExcept(index, this->size_, "DoubleLinkedList<T>::removeAt: invalid index.");
 			LinkedListItem<T>* remove = nullptr;
 
-			//odober·m z prvej pozÌcie prvok
+			//odober√°m z prvej poz√≠cie prvok
 			if (index == 0) {
 				remove = this->first_;
 				LinkedListItem<T>* next = remove->getNext();
+				next->setPrev = nullptr;
 				this->first_ = next;
-				//ak odober·m jedin˝ prvok, ktor˝ sa v liste nach·dza
+				//ak odober√°m jedin√Ω prvok, ktor√Ω sa v liste nach√°dza
 				if (this->size_ == 1) {
 					this->last_ = nullptr;
 				}
 			}
-			//odober·m z konca		
+			//odober√°m z konca		
 			else {
 
 				LinkedListItem<T>* prev = this->getItemAtIndex(index - 1);
+				LinkedListItem<T>* next = this->getItemAtIndex(index + 1);
 				remove = prev->getNext();
 				prev->setNext(remove->getNext());
+				next->setPrev(prev);
 				if (index == this->size_ - 1) {
 					this->last_ = prev;
 				}
@@ -366,14 +399,14 @@ namespace structures
 	}
 
 	template<typename T>
-	inline int LinkedList<T>::getIndexOf(const T& data)
+	inline int DoubleLinkedList<T>::getIndexOf(const T& data)
 	{
 		LinkedListItem<T>* result = this->first_;
 		int index = 0;
 
-		//nepouûÌvam cyklus for, pretoûe for prebehne celÈ, ale viem to vyrieöiù breakom
-		//kombin·cia cyklu (On) a hranat˝ch z·tvoriek (On) mi d·va zloûitosù (On^2), preto sa 
-		//tomu chceme vyhn˙ù
+		//nepou≈æ√≠vam cyklus for, preto≈æe for prebehne cel√©, ale viem to vyrie≈°i≈• breakom
+		//kombin√°cia cyklu (On) a hranat√Ωch z√°tvoriek (On) mi d√°va zlo≈æitos≈• (On^2), preto sa 
+		//tomu chceme vyhn√∫≈•
 
 		while (result != nullptr) {
 			if (result->accessData() == data) {
@@ -386,7 +419,7 @@ namespace structures
 	}
 
 	template<typename T>
-	inline void LinkedList<T>::clear()
+	inline void DoubleLinkedList<T>::clear()
 	{
 		LinkedListItem<T>* curr = this->first_;
 		while (curr != nullptr) {
@@ -399,21 +432,21 @@ namespace structures
 	}
 
 	template<typename T>
-	inline Iterator<T>* LinkedList<T>::getBeginIterator() const
+	inline Iterator<T>* DoubleLinkedList<T>::getBeginIterator() const
 	{
 		return new LinkedListIterator(first_);
 	}
 
 	template<typename T>
-	inline Iterator<T>* LinkedList<T>::getEndIterator() const
+	inline Iterator<T>* DoubleLinkedList<T>::getEndIterator() const
 	{
 		return new LinkedListIterator(nullptr);
 	}
 
 	template<typename T>
-	inline LinkedListItem<T>* LinkedList<T>::getItemAtIndex(int index) const
+	inline LinkedListItem<T>* DoubleLinkedList<T>::getItemAtIndex(int index) const
 	{
-		DSRoutines::rangeCheckExcept(index, size_, "LinkedList<T>::getItemAtIndex: invalid index.");
+		DSRoutines::rangeCheckExcept(index, size_, "DoubleLinkedList<T>::getItemAtIndex: invalid index.");
 
 		LinkedListItem<T>* result = this->first_;
 		for (int i = 0; i < index; i++)
@@ -424,52 +457,53 @@ namespace structures
 	}
 
 	template<typename T>
-	inline LinkedList<T>::LinkedListIterator::LinkedListIterator(LinkedListItem<T>* position) :
+	inline DoubleLinkedList<T>::LinkedListIterator::LinkedListIterator(LinkedListItem<T>* position) :
 		position_(position)
 	{
 	}
 
 	template<typename T>
-	inline LinkedList<T>::LinkedListIterator::~LinkedListIterator()
+	inline DoubleLinkedList<T>::LinkedListIterator::~LinkedListIterator()
 	{
 		this->position_ = nullptr;
 	}
 
 	template<typename T>
-	inline Iterator<T>& LinkedList<T>::LinkedListIterator::operator=(const Iterator<T>& other)
+	inline Iterator<T>& DoubleLinkedList<T>::LinkedListIterator::operator=(const Iterator<T>& other)
 	{
 		if (this != &other) {
 			this->position_ = dynamic_cast<const LinkedListIterator&>(other).position_;
 
-			//parameter other je iterator a potrebujem LinkedListIterator a preto musÌm pretypov
+			//parameter other je iterator a potrebujem LinkedListIterator a preto mus√≠m pretypov
 		}
 		return *this;
 	}
 
 	template<typename T>
-	inline bool LinkedList<T>::LinkedListIterator::operator!=(const Iterator<T>& other)
+	inline bool DoubleLinkedList<T>::LinkedListIterator::operator!=(const Iterator<T>& other)
 	{
 		return this->position_ != dynamic_cast<const LinkedListIterator&>(other).position_;
 
-		//parameter other je iterator a potrebujem LinkedListIterator a preto musÌm pretypovaù - pouûijem 
+		//parameter other je iterator a potrebujem LinkedListIterator a preto mus√≠m pretypova≈• - pou≈æijem 
 		//dynamic_cast, kde ho pretypujem na <const LinkedListIterator&>, aby som z neho dostal potomka
-		//a sprÌstupnÌm position
+		//a spr√≠stupn√≠m position
 	}
 
 	template<typename T>
-	inline const T LinkedList<T>::LinkedListIterator::operator*()
+	inline const T DoubleLinkedList<T>::LinkedListIterator::operator*()
 	{
-		//toto nie je n·sobenie
-		//toto je sprÌstupnenie d·t, na ktorÈ iter·tor ukazuje
+		//toto nie je n√°sobenie
+		//toto je spr√≠stupnenie d√°t, na ktor√© iter√°tor ukazuje
 		T data = this->position_->accessData();
 		return data;
 	}
 
 	template<typename T>
-	inline Iterator<T>& LinkedList<T>::LinkedListIterator::operator++()
+	inline Iterator<T>& DoubleLinkedList<T>::LinkedListIterator::operator++()
 	{
 		this->position_ = this->position_->getNext();
 		return *this;
-		//musÌm vr·tiù ten objekt iter·tor ktor˝ som modifikoval a to je ten objekt this
+		//mus√≠m vr√°ti≈• ten objekt iter√°tor ktor√Ω som modifikoval a to je ten objekt this
 	}
+	
 }

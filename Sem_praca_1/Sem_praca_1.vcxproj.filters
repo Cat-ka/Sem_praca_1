@@ -142,6 +142,9 @@
     <ClInclude Include="scenario.h">
       <Filter>testing</Filter>
     </ClInclude>
+    <ClInclude Include="structures\list\double_linked_list.h">
+      <Filter>structures\list</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram2.cd" />

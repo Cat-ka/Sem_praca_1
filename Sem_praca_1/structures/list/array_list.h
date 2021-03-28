@@ -3,6 +3,7 @@
 #include "list.h"
 #include "../structure_iterator.h"
 #include "../array/array.h"
+#include <iostream>
 
 namespace structures
 {
@@ -281,8 +282,8 @@ namespace structures
 			this->size_ = this->size_ - 1;
 			return removed;
 		}
-		else {
-			cout << "The list is empty. Nothing to delete." << endl;
+		else {			
+			//std::cout << "The list is empty. Nothing to delete." << std::endl;
 		}
 	}
 

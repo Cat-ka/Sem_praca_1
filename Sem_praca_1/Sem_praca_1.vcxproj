@@ -154,6 +154,7 @@
     <ClInclude Include="structures\ds_structure_types.h" />
     <ClInclude Include="structures\heap_monitor.h" />
     <ClInclude Include="structures\list\array_list.h" />
+    <ClInclude Include="structures\list\double_linked_list.h" />
     <ClInclude Include="structures\list\linked_list.h" />
     <ClInclude Include="structures\list\list.h" />
     <ClInclude Include="structures\priority_queue\heap.h" />

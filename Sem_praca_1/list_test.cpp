@@ -33,7 +33,7 @@ ListTest::~ListTest()
 
 void ListTest::runTesting(char& scenario)
 {
-	int pocetOpakovani = 1000;
+	int pocetOpakovani = 100000;
 	int cAdd = s.ifCounterAdd(scenario);
 	int cRem = s.ifCounterRemove(scenario);
 	int cSet = s.ifCounterSet(scenario);
@@ -78,7 +78,7 @@ void ListTest::add()
 	int data = this->generating(0, 100);
 	std::chrono::steady_clock::time_point start;
 	std::chrono::steady_clock::time_point stop;
-	std::chrono::nanoseconds duration;
+	std::chrono::microseconds duration;
 	int actualSize = 0;
 	start = high_resolution_clock::now();
 	switch (temp)
@@ -97,9 +97,9 @@ void ListTest::add()
 		break;
 	}
 	stop = high_resolution_clock::now();
-	duration = duration_cast<nanoseconds>(stop - start);
+	duration = duration_cast<microseconds>(stop - start);
 	actualSize = this->list_->size();
-	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	//cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
 	zapis(this->fileName, operation, duration.count(), actualSize);
 }
 
@@ -108,7 +108,7 @@ void ListTest::remove()
 	int temp = this->generating(0, 2);
 	std::chrono::steady_clock::time_point start;
 	std::chrono::steady_clock::time_point stop;
-	std::chrono::nanoseconds duration;
+	std::chrono::microseconds duration;
 	int actualSize = this->list_->size();
 
 	start = high_resolution_clock::now();
@@ -139,9 +139,9 @@ void ListTest::remove()
 		break;
 	}
 	stop = high_resolution_clock::now();
-	duration = duration_cast<nanoseconds>(stop - start);
+	duration = duration_cast<microseconds>(stop - start);
 	actualSize = this->list_->size();
-	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	//cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
 	zapis(this->fileName, operation, duration.count(), actualSize);
 }
 
@@ -158,7 +158,7 @@ void ListTest::set()
 	}
 	std::chrono::steady_clock::time_point start;
 	std::chrono::steady_clock::time_point stop;
-	std::chrono::nanoseconds duration;
+	std::chrono::microseconds duration;
 	int actualSize = this->list_->size();
 
 	start = high_resolution_clock::now();
@@ -179,9 +179,9 @@ void ListTest::set()
 		break;
 	}
 	stop = high_resolution_clock::now();
-	duration = duration_cast<nanoseconds>(stop - start);
+	duration = duration_cast<microseconds>(stop - start);
 	actualSize = this->list_->size();
-	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	//cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
 	zapis(this->fileName, operation, duration.count(), actualSize);
 }
 
@@ -191,7 +191,7 @@ void ListTest::index()
 	int index = this->generating(0, this->list_->size());
 	std::chrono::steady_clock::time_point start;
 	std::chrono::steady_clock::time_point stop;
-	std::chrono::nanoseconds duration;
+	std::chrono::microseconds duration;
 	int actualSize = this->list_->size();
 
 	start = high_resolution_clock::now();
@@ -200,9 +200,9 @@ void ListTest::index()
 		operation = "getIndexOf";
 	}
 	stop = high_resolution_clock::now();
-	duration = duration_cast<nanoseconds>(stop - start);
+	duration = duration_cast<microseconds>(stop - start);
 	actualSize = this->list_->size();
-	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	//cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
 	zapis(this->fileName, operation, duration.count(), actualSize);
 
 }
