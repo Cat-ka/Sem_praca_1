@@ -447,13 +447,22 @@ namespace structures
 	inline LinkedListItem<T>* DoubleLinkedList<T>::getItemAtIndex(int index) const
 	{
 		DSRoutines::rangeCheckExcept(index, size_, "DoubleLinkedList<T>::getItemAtIndex: invalid index.");
-
-		LinkedListItem<T>* result = this->first_;
-		for (int i = 0; i < index; i++)
-		{
-			result = result->getNext();
+		int middle = index / 2;
+		if (index < middle) {
+			LinkedListItem<T>* result = this->first_;
+			for (int i = 0; i < index; i++)
+			{
+				result = result->getNext();
+			}			
 		}
-		return result;
+		else {
+			LinkedListItem<T>* result = this->last_;
+			for (int i = size_-1; i > index / ; i--)
+			{
+				result = result->getPrev();
+			}
+		}
+		return result;		
 	}
 
 	template<typename T>
