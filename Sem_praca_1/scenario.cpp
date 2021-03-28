@@ -5,8 +5,15 @@
 using namespace std;
 using namespace structures;
 
+
 Scenario::Scenario()
 {
+}
+
+
+Scenario::Scenario(char scenario)
+{
+	testingScenario = scenario;
 }
 
 Scenario::~Scenario()
@@ -134,5 +141,5 @@ int Scenario::getCounterIndex()
 
 char Scenario::getScenario()
 {
-	return scenario;
+	return testingScenario;
 }

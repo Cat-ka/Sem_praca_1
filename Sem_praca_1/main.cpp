@@ -11,7 +11,7 @@ using namespace std;
 int main() {
 	cout << "Zacinam testovat.  \n \n" << endl;
 	ListTest* testuj = new ListTest();
-	Scenario vyberScenar;
+	
 	int adt;
 	char scenar;
 	cout << "Zvolte cislo ADT pre testovanie: \n";
@@ -19,7 +19,7 @@ int main() {
 	cout << "2. LinkedList \n";
 	cout << "Vasa volba: ";
 	cin >> adt;
-	testuj->vyberADT(adt);
+	
 	
 
 	cout << "Vyberte typ scenara na testovanie: \n";
@@ -28,12 +28,11 @@ int main() {
 	cout << "C \n";
 	cout << "X - vlastny scenar \n";
 	cout << "Vasa volba: ";
-	cin >> scenar;
+	cin >> scenar;	
 	scenar = toupper(scenar);
-
-	Scenario vyber;
-	
-
+	Scenario* vyberScenar = new Scenario(scenar);
+	//char temp = vyberScenar->getScenario();
+	testuj->vyberADT(adt, scenar);
 	testuj->runTesting(scenar);
 	
 	

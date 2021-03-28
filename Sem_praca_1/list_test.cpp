@@ -3,7 +3,6 @@
 using namespace std::chrono;
 
 
-
 ListTest::ListTest(int atd)
 {
 	if (atd = 1) {
@@ -77,7 +76,6 @@ void ListTest::add()
 
 	int temp = this->generating(0, 2);
 	int data = this->generating(0, 100);
-	string operation;
 	std::chrono::steady_clock::time_point start;
 	std::chrono::steady_clock::time_point stop;
 	std::chrono::nanoseconds duration;
@@ -102,8 +100,7 @@ void ListTest::add()
 	duration = duration_cast<nanoseconds>(stop - start);
 	actualSize = this->list_->size();
 	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
-	string nazov = "pridavanie.csv";
-	zapis(nazov, operation, duration.count(), actualSize);
+	zapis(this->fileName, operation, duration.count(), actualSize);
 }
 
 void ListTest::remove()
@@ -113,27 +110,23 @@ void ListTest::remove()
 	std::chrono::steady_clock::time_point stop;
 	std::chrono::nanoseconds duration;
 	int actualSize = this->list_->size();
+
+	start = high_resolution_clock::now();
+
 	switch (temp) {
 	case 0:
-		start = high_resolution_clock::now();
+
 		this->list_->removeAt(0);
-		stop = high_resolution_clock::now();
-		duration = duration_cast<nanoseconds>(stop - start);
-		actualSize = this->list_->size();
-		cout << "F: remove_begin, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+		operation = "remove_begin";
 		break;
+
 	case 1:
-		start = high_resolution_clock::now();
-		//if (actualSize > 0) {
+
 		this->list_->removeAt(this->list_->size() - 1);
-		//}
-		stop = high_resolution_clock::now();
-		duration = duration_cast<nanoseconds>(stop - start);
-		actualSize = this->list_->size();
-		cout << "F: remove_end, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+		operation = "remove_end";
 		break;
 	default:
-		start = high_resolution_clock::now();
+
 		int index;
 		if (actualSize > 0) {
 			index = this->generating(0, actualSize - 1);
@@ -142,12 +135,14 @@ void ListTest::remove()
 			index = 0;
 		}
 		this->list_->removeAt(index);
-		stop = high_resolution_clock::now();
-		duration = duration_cast<nanoseconds>(stop - start);
-		actualSize = this->list_->size();
-		cout << "F: remove_on_index, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+		operation = "remove_on_index";
 		break;
 	}
+	stop = high_resolution_clock::now();
+	duration = duration_cast<nanoseconds>(stop - start);
+	actualSize = this->list_->size();
+	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	zapis(this->fileName, operation, duration.count(), actualSize);
 }
 
 void ListTest::set()
@@ -165,28 +160,29 @@ void ListTest::set()
 	std::chrono::steady_clock::time_point stop;
 	std::chrono::nanoseconds duration;
 	int actualSize = this->list_->size();
+
+	start = high_resolution_clock::now();
+
 	switch (temp) {
 	case 0:
-		start = high_resolution_clock::now();
+		
 		if (actualSize > 0) {
 			this->list_[index];
-		}
-		stop = high_resolution_clock::now();
-		duration = duration_cast<nanoseconds>(stop - start);
-		actualSize = this->list_->size();
-		cout << "F: set_spristupni, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+			operation = "set_[]";
+		}		
 		break;
-	default:
-		start = high_resolution_clock::now();
+	default:		
 		if (actualSize > 0) {
 			(*this->list_)[index] = data;
-		}
-		stop = high_resolution_clock::now();
-		duration = duration_cast<nanoseconds>(stop - start);
-		actualSize = this->list_->size();
-		cout << "F: set_nastav, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+			operation = "set_=";
+		}		
 		break;
 	}
+	stop = high_resolution_clock::now();
+	duration = duration_cast<nanoseconds>(stop - start);
+	actualSize = this->list_->size();
+	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	zapis(this->fileName, operation, duration.count(), actualSize);
 }
 
 void ListTest::index()
@@ -201,29 +197,34 @@ void ListTest::index()
 	start = high_resolution_clock::now();
 	if (actualSize > 0) {
 		this->list_->getIndexOf(data);
+		operation = "getIndexOf";
 	}
 	stop = high_resolution_clock::now();
 	duration = duration_cast<nanoseconds>(stop - start);
 	actualSize = this->list_->size();
-	cout << "F: index, T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	zapis(this->fileName, operation, duration.count(), actualSize);
 
 }
 
-List<int>& ListTest::vyberADT(int adt)
+List<int>& ListTest::vyberADT(int adt, char scenar)
 {
+	string name;
+	name.append(1, scenar);
 	if (adt == 1) {
 		list_ = new ArrayList<int>();
 		cout << "Chystas sa testovat ArrayList. \n" << endl;
-		return *list_;
+		fileName = name + "_ArrayList.txt";
 	}
 	else if (adt == 2) {
 		list_ = new LinkedList<int>();
 		cout << "Chystas sa testovat LinkedList. \n" << endl;
-		return *list_;
+		fileName = name + "_LinkedList.txt";
 	}
+	return *list_;
 }
 
-void ListTest::zapis(string fileName, string operation, double trvanie, int sizeOf)
+void ListTest::zapis(string fileName, string operation, int trvanie, int sizeOf)
 {
 	ofstream file;
 	file.open(fileName, ios_base::app);
@@ -232,24 +233,3 @@ void ListTest::zapis(string fileName, string operation, double trvanie, int size
 
 }
 
-
-
-void ListTest::measureTimeStart()
-{
-	// Using time point and system_clock 
-	std::chrono::time_point<std::chrono::system_clock> start, end;
-	start = std::chrono::system_clock::now();
-
-}
-
-void ListTest::measureTimeStop() {
-	// Using time point and system_clock 
-	std::chrono::time_point<std::chrono::system_clock> start, end;
-
-	end = std::chrono::system_clock::now();
-
-	std::chrono::duration<double> elapsed_seconds = end - start;
-	//std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-
-	std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
-}

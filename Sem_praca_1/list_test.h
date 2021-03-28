@@ -26,11 +26,9 @@ public:
 	void remove();
 	void set();
 	void index();
-	List<int>& vyberADT(int adt);
-	void zapis(string fileName, string operation, double trvanie, int sizeOf);
+	List<int>& vyberADT(int adt, char scenar);
+	void zapis(string fileName, string operation, int trvanie, int sizeOf);
 
-	void ListTest::measureTimeStart();
-	void ListTest::measureTimeStop();
 
 private:
 	List<int>* list_;
@@ -41,4 +39,6 @@ private:
 	int tempRemove;	
 	int tempSet;	
 	int tempIndex;
+	string fileName;
+	string operation;
 };

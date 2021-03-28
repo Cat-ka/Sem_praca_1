@@ -12,6 +12,7 @@ public:
 	//urobiù scenare tak aby mi vracali jednotlivÈ county.... ako returny
 
 	Scenario();
+	Scenario(char scenario);
 	~Scenario();
 	int ifCounterAdd(char& scenario);
 	int ifCounterRemove(char& scenario);
@@ -28,6 +29,6 @@ private:
 	int counterSet;
 	int counterIndex;
 	int percentPomer;
-	char scenario;
+	char testingScenario;
 	//Array<int>* setScenario;
 };
