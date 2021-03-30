@@ -112,7 +112,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,8 +146,11 @@
     <ClCompile Include="structures\vector\vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="array2Dcontiguous.h" />
+    <ClInclude Include="array2Dnoncontiguous.h" />
     <ClInclude Include="ITest.h" />
     <ClInclude Include="list_test.h" />
+    <ClInclude Include="array2D.h" />
     <ClInclude Include="scenario.h" />
     <ClInclude Include="structures\array\array.h" />
     <ClInclude Include="structures\ds_routines.h" />

@@ -1,20 +1,8 @@
 #include "list_test.h"
+#include <iostream>
 
 using namespace std::chrono;
 
-
-ListTest::ListTest(int atd)
-{
-	if (atd = 1) {
-		list_ = new ArrayList<int>();
-	}
-	else if (atd = 2)
-	{
-		list_ = new LinkedList<int>();
-	}
-	//list_ = &list;
-
-}
 
 ListTest::ListTest()
 {
@@ -24,23 +12,22 @@ ListTest::ListTest()
 	tempIndex = 0;
 }
 
-
-
 ListTest::~ListTest()
 {
+	delete this->list_;
+	this->list_ = nullptr;
 }
-
 
 void ListTest::runTesting(char& scenario)
 {
-	int pocetOpakovani = 100000;
 	int cAdd = s.ifCounterAdd(scenario);
 	int cRem = s.ifCounterRemove(scenario);
 	int cSet = s.ifCounterSet(scenario);
 	int cInd = s.ifCounterIndex(scenario);
 
-	for (int i = 0; i < pocetOpakovani; i++)
+	for (int i = 0; i < this->pocetOpakovani; i++)
 	{
+		vypis();
 		int pocetOperacii = generating(1, 100);
 
 		if ((pocetOperacii < cAdd) && (tempAdd <= (pocetOpakovani / 100 * cAdd))) {
@@ -76,6 +63,7 @@ void ListTest::add()
 
 	int temp = this->generating(0, 2);
 	int data = this->generating(0, 100);
+	cout << "ideme_add: " << operation << endl;
 	std::chrono::steady_clock::time_point start;
 	std::chrono::steady_clock::time_point stop;
 	std::chrono::microseconds duration;
@@ -99,13 +87,14 @@ void ListTest::add()
 	stop = high_resolution_clock::now();
 	duration = duration_cast<microseconds>(stop - start);
 	actualSize = this->list_->size();
-	//cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
 	zapis(this->fileName, operation, duration.count(), actualSize);
 }
 
 void ListTest::remove()
 {
 	int temp = this->generating(0, 2);
+	cout << "ideme_remove: " << operation << endl;
 	std::chrono::steady_clock::time_point start;
 	std::chrono::steady_clock::time_point stop;
 	std::chrono::microseconds duration;
@@ -141,7 +130,7 @@ void ListTest::remove()
 	stop = high_resolution_clock::now();
 	duration = duration_cast<microseconds>(stop - start);
 	actualSize = this->list_->size();
-	//cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
 	zapis(this->fileName, operation, duration.count(), actualSize);
 }
 
@@ -149,6 +138,7 @@ void ListTest::set()
 {
 	int temp = this->generating(0, 1);
 	int data = this->generating(0, 100);
+	cout << "ideme_set: " << operation << endl;
 	int index;
 	if (this->list_->size() > 0) {
 		index = this->generating(0, this->list_->size() - 1);
@@ -181,13 +171,14 @@ void ListTest::set()
 	stop = high_resolution_clock::now();
 	duration = duration_cast<microseconds>(stop - start);
 	actualSize = this->list_->size();
-	//cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
 	zapis(this->fileName, operation, duration.count(), actualSize);
 }
 
 void ListTest::index()
 {
 	int data = this->generating(0, 100);
+	cout << "ideme_index: " << operation << endl;
 	int index = this->generating(0, this->list_->size());
 	std::chrono::steady_clock::time_point start;
 	std::chrono::steady_clock::time_point stop;
@@ -202,7 +193,7 @@ void ListTest::index()
 	stop = high_resolution_clock::now();
 	duration = duration_cast<microseconds>(stop - start);
 	actualSize = this->list_->size();
-	//cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
+	cout << "F: " << operation << " T: " << duration.count() << " microseconds, S: " << actualSize << endl;
 	zapis(this->fileName, operation, duration.count(), actualSize);
 
 }
@@ -221,6 +212,11 @@ List<int>& ListTest::vyberADT(int adt, char scenar)
 		cout << "Chystas sa testovat LinkedList. \n" << endl;
 		fileName = name + "_LinkedList.txt";
 	}
+	else if (adt == 3) {
+		list_ = new DoubleLinkedList<int>();
+		cout << "Chystas sa testovat LinkedList. \n" << endl;
+		fileName = name + "_LinkedList.txt";
+	}
 	return *list_;
 }
 
@@ -232,4 +228,17 @@ void ListTest::zapis(string fileName, string operation, int trvanie, int sizeOf)
 	file.close();
 
 }
+
+void ListTest::vypis()
+{
+	for (size_t i = 0; i < this->list_->size(); i++)
+	{
+		cout << this->list_->operator[](i) << " ";
+	}
+	cout << endl;
+}
+
+
+
+
 

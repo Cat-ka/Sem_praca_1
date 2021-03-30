@@ -18,6 +18,7 @@ Scenario::Scenario(char scenario)
 
 Scenario::~Scenario()
 {
+	testingScenario = 0;
 }
 
 int Scenario::ifCounterAdd(char& scenario)

@@ -39,6 +39,9 @@
     <Filter Include="testing">
       <UniqueIdentifier>{58b92f8c-917c-4f52-a94a-e575cf17968c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="structures\array2D">
+      <UniqueIdentifier>{98773d80-14ff-4c9a-96d7-a471ff5c6dc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,7 +60,7 @@
       <Filter>structures\vector</Filter>
     </ClCompile>
     <ClCompile Include="scenario.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>testing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +147,15 @@
     </ClInclude>
     <ClInclude Include="structures\list\double_linked_list.h">
       <Filter>structures\list</Filter>
+    </ClInclude>
+    <ClInclude Include="array2D.h">
+      <Filter>structures\array2D</Filter>
+    </ClInclude>
+    <ClInclude Include="array2Dcontiguous.h">
+      <Filter>structures\array2D</Filter>
+    </ClInclude>
+    <ClInclude Include="array2Dnoncontiguous.h">
+      <Filter>structures\array2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

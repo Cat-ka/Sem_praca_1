@@ -4,6 +4,7 @@
 #include "../structure_iterator.h"
 #include "../ds_routines.h"
 
+
 namespace structures
 {
 
@@ -31,6 +32,7 @@ namespace structures
 		/// <summary> Setter nasledujuceho prvku zretazeneho zoznamu. </summary>
 		/// <param name¥= "next"> Novy nasledujuci prvok zretazeneho zoznamu. </param>
 		void setNext(LinkedListItem<T>* next);
+
 	private:
 		/// <summary> Nasledujuci prvok zretazeneho zoznamu. </summary>
 		LinkedListItem<T>* next_;
@@ -201,7 +203,7 @@ namespace structures
 	{
 		next_ = next;
 	}
-
+	
 	template<typename T>
 	inline LinkedList<T>::LinkedList() :
 		List(),
@@ -472,4 +474,5 @@ namespace structures
 		return *this;
 		//musÌm vr·tiù ten objekt iter·tor ktor˝ som modifikoval a to je ten objekt this
 	}
+	
 }

@@ -1,42 +1,50 @@
 #pragma once
 
 #include "list.h"
+#include "../heap_monitor.h"
 #include "../structure_iterator.h"
 #include "../ds_routines.h"
 
 namespace structures
 {
-
 	/// <summary> Prvok jednostranne zretazeneho zoznamu. </summary>
 	/// <typeparam name = "T"> Typ dat ukladanych v prvku. </typepram>
 	template<typename T>
-	class LinkedListItem : public DataItem<T>
+	class DoubleLLI : public DataItem<T>
 	{
 	public:
 		/// <summary> Konstruktor. </summary>
 		/// <param name = "data"> Data, ktore uchovava. </param>
-		LinkedListItem(T data);
+		DoubleLLI(T data);
 
 		/// <summary> Kopirovaci konstruktor. </summary>
 		/// <param name = "other"> Prvok jednstranne zretazeneho zoznamu, z ktoreho sa prevezmu vlastnosti.. </param>
-		LinkedListItem(const LinkedListItem<T>& other);
+		DoubleLLI(const DoubleLLI<T>& other);
 
 		/// <summary> Destruktor. </summary>
-		~LinkedListItem();
+		~DoubleLLI();
 
 		/// <summary> Getter nasledujuceho prvku zretazeneho zoznamu. </summary>
 		/// <returns> Nasledujuci prvok zretazeneho zoznamu. </returns>
-		LinkedListItem<T>* getNext();
-		LinkedListItem<T>* getPrev();
+		DoubleLLI<T>* getNext();
+
+		/// <summary> Getter predchadzajuceho prvku zretazeneho zoznamu. </summary>
+		/// <returns> Predchadzajuci prvok zretazeneho zoznamu. </returns>
+		DoubleLLI<T>* getPrev();
 
 		/// <summary> Setter nasledujuceho prvku zretazeneho zoznamu. </summary>
 		/// <param name´= "next"> Novy nasledujuci prvok zretazeneho zoznamu. </param>
-		void setNext(LinkedListItem<T>* next);
-		void setPrev(LinkedListItem<T>* prev);
+		void setNext(DoubleLLI<T>* next);
+
+		/// <summary> Setter predchadzajuceho prvku zretazeneho zoznamu. </summary>
+		/// <param name´= "prevt"> Novy predchadzajuci prvok zretazeneho zoznamu. </param>
+		void setPrev(DoubleLLI<T>* prev);
+
 	private:
 		/// <summary> Nasledujuci prvok zretazeneho zoznamu. </summary>
-		LinkedListItem<T>* next_;
-		LinkedListItem<T>* prev_;
+		DoubleLLI<T>* next_;
+		/// <summary> Predchadzajúci prvok zretazeneho zoznamu. </summary>
+		DoubleLLI<T>* prev_;
 	};
 
 	/// <summary> Jednostranne zretazeny zoznam. </summary>
@@ -128,15 +136,15 @@ namespace structures
 		/// <summary> Pocet prvkov v zozname. </summary>
 		size_t size_;
 		/// <summary> Prvy prvok zoznamu. </summary>
-		LinkedListItem<T>* first_;
+		DoubleLLI<T>* first_;
 		/// <summary> Posledny prvok zoznamu. </summary>
-		LinkedListItem<T>* last_;
+		DoubleLLI<T>* last_;
 	private:
 		/// <summary> Vrati prvok zoznamu na danom indexe. </summary>
 		/// <param name = "index"> Pozadovany index. </summary>
 		/// <returns> Prvok zoznamu na danom indexe. </param>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do zoznamu. </exception>  
-		LinkedListItem<T>* getItemAtIndex(int index) const;
+		DoubleLLI<T>* getItemAtIndex(int index) const;
 	private:
 		/// <summary> Iterator pre DoubleLinkedList. </summary>
 		class LinkedListIterator : public Iterator<T>
@@ -144,7 +152,7 @@ namespace structures
 		public:
 			/// <summary> Konstruktor. </summary>
 			/// <param name = "position"> Pozicia v zretazenom zozname, na ktorej zacina. </param>
-			LinkedListIterator(LinkedListItem<T>* position);
+			LinkedListIterator(DoubleLLI<T>* position);
 
 			/// <summary> Destruktor. </summary>
 			~LinkedListIterator();
@@ -169,12 +177,12 @@ namespace structures
 			Iterator<T>& operator++() override;
 		private:
 			/// <summary> Aktualna pozicia v zozname. </summary>
-			LinkedListItem<T>* position_;
+			DoubleLLI<T>* position_;
 		};
 	};
 
 	template<typename T>
-	inline LinkedListItem<T>::LinkedListItem(T data) :
+	inline DoubleLLI<T>::DoubleLLI(T data) :
 		DataItem<T>(data),
 		next_(nullptr),
 		prev_(nullptr)
@@ -182,7 +190,7 @@ namespace structures
 	}
 
 	template<typename T>
-	inline LinkedListItem<T>::LinkedListItem(const LinkedListItem<T>& other) :
+	inline DoubleLLI<T>::DoubleLLI(const DoubleLLI<T>& other) :
 		DataItem<T>(other),
 		next_(other.next_),
 		prev_(other.prev_)
@@ -190,32 +198,32 @@ namespace structures
 	}
 
 	template<typename T>
-	inline LinkedListItem<T>::~LinkedListItem()
+	inline DoubleLLI<T>::~DoubleLLI()
 	{
 		next_ = nullptr;
 		prev_ = nullptr;
 	}
 
 	template<typename T>
-	inline LinkedListItem<T>* LinkedListItem<T>::getNext()
+	inline DoubleLLI<T>* DoubleLLI<T>::getNext()
 	{
 		return next_;
 	}
 
 	template<typename T>
-	inline void LinkedListItem<T>::setNext(LinkedListItem<T>* next)
+	inline void DoubleLLI<T>::setNext(DoubleLLI<T>* next)
 	{
 		next_ = next;
 	}
 
 	template<typename T>
-	inline LinkedListItem<T>* LinkedListItem<T>::getPrev()
+	inline DoubleLLI<T>* DoubleLLI<T>::getPrev()
 	{
 		return prev_;
 	}
 
 	template<typename T>
-	inline void LinkedListItem<T>::setPrev(LinkedListItem<T>* prev)
+	inline void DoubleLLI<T>::setPrev(DoubleLLI<T>* prev)
 	{
 		prev_ = prev;
 	}
@@ -282,7 +290,7 @@ namespace structures
 	inline T& DoubleLinkedList<T>::operator[](const int index)
 	{
 		DSRoutines::rangeCheckExcept(index, this->size_, "DoubleLinkedList<T>::operator[]: invalid index.");
-		LinkedListItem<T>* item = getItemAtIndex(index);
+		DoubleLLI<T>* item = getItemAtIndex(index);
 		return item->accessData();
 	}
 
@@ -291,28 +299,28 @@ namespace structures
 		//const metóda musí volať len const metódy
 	{
 		DSRoutines::rangeCheckExcept(index, this->size_, "DoubleLinkedList<T>::operator[]: invalid index.");
-		LinkedListItem<T>* item = getItemAtIndex(index);
+		DoubleLLI<T>* item = getItemAtIndex(index);
 		return item->accessData();
 	}
 
 	template<typename T>
 	inline void DoubleLinkedList<T>::add(const T& data)
 	{
-		LinkedListItem<T>* newItem = new LinkedListItem<T>(data);
+		DoubleLLI<T>* newItem = new DoubleLLI<T>(data);
 		if (this->size_ == 0) {
 			this->first_ = newItem;
 			this->last_ = newItem;
-			newItem->prev_ = nullptr;
-			newItem->next_ = nullptr;
+			newItem->setPrev(nullptr);
+			newItem->setNext(nullptr);
 		}
 		else {
 			newItem->setPrev(this->last_);
-			newItem->setNext = nullptr;
+			newItem->setNext(nullptr);
 			this->last_->setNext(newItem);
 			this->last_ = newItem;
-			
+
 			//najskôr musím urobiť, aby posledný ukazoval na ten nový a potom z ten posledný zmením, aby sa ním stal ten nový 
-		}		
+		}
 		this->size_++;
 	}
 
@@ -327,15 +335,15 @@ namespace structures
 		else {
 			//utčite nevkladám na koniec a určite nie je zoznam prázdny
 			//už mám nastavené first a lasta už ju len modifikujem
-			LinkedListItem<T>* newItem = new LinkedListItem<T>(data);
+			DoubleLLI<T>* newItem = new DoubleLLI<T>(data);
 			if (index == 0) {
 				newItem->setNext(this->first_);
 				this->first_->setPrev(newItem);
 				this->first_ = newItem;
 			}
 			else {
-				LinkedListItem<T>* prev = this->getItemAtIndex(index - 1);
-				LinkedListItem<T>* next = this->getItemAtIndex(index + 1);
+				DoubleLLI<T>* prev = this->getItemAtIndex(index - 1);
+				DoubleLLI<T>* next = this->getItemAtIndex(index + 1);
 				newItem->setNext(prev->getNext());
 				prev->setNext(newItem);
 				newItem->setPrev(prev);
@@ -363,13 +371,13 @@ namespace structures
 	{
 		if (this->size_ != 0) {
 			DSRoutines::rangeCheckExcept(index, this->size_, "DoubleLinkedList<T>::removeAt: invalid index.");
-			LinkedListItem<T>* remove = nullptr;
+			DoubleLLI<T>* remove = nullptr;
 
 			//odoberám z prvej pozície prvok
 			if (index == 0) {
 				remove = this->first_;
-				LinkedListItem<T>* next = remove->getNext();
-				next->setPrev = nullptr;
+				DoubleLLI<T>* next = remove->getNext();
+				//next->setPrev(nullptr);
 				this->first_ = next;
 				//ak odoberám jediný prvok, ktorý sa v liste nachádza
 				if (this->size_ == 1) {
@@ -379,13 +387,14 @@ namespace structures
 			//odoberám z konca		
 			else {
 
-				LinkedListItem<T>* prev = this->getItemAtIndex(index - 1);
-				LinkedListItem<T>* next = this->getItemAtIndex(index + 1);
+				DoubleLLI<T>* prev = this->getItemAtIndex(index - 1);
 				remove = prev->getNext();
-				prev->setNext(remove->getNext());
-				next->setPrev(prev);
+				prev->setNext(remove->getNext());				
 				if (index == this->size_ - 1) {
 					this->last_ = prev;
+				}
+				else {
+					remove->getNext()->setPrev(prev);
 				}
 			}
 			T data = remove->accessData();
@@ -401,7 +410,7 @@ namespace structures
 	template<typename T>
 	inline int DoubleLinkedList<T>::getIndexOf(const T& data)
 	{
-		LinkedListItem<T>* result = this->first_;
+		DoubleLLI<T>* result = this->first_;
 		int index = 0;
 
 		//nepoužívam cyklus for, pretože for prebehne celé, ale viem to vyriešiť breakom
@@ -421,7 +430,7 @@ namespace structures
 	template<typename T>
 	inline void DoubleLinkedList<T>::clear()
 	{
-		LinkedListItem<T>* curr = this->first_;
+		DoubleLLI<T>* curr = this->first_;
 		while (curr != nullptr) {
 			curr = curr->getNext();
 			delete this->first_;
@@ -444,29 +453,30 @@ namespace structures
 	}
 
 	template<typename T>
-	inline LinkedListItem<T>* DoubleLinkedList<T>::getItemAtIndex(int index) const
+	inline DoubleLLI<T>* DoubleLinkedList<T>::getItemAtIndex(int index) const
 	{
 		DSRoutines::rangeCheckExcept(index, size_, "DoubleLinkedList<T>::getItemAtIndex: invalid index.");
 		int middle = index / 2;
-		if (index < middle) {
-			LinkedListItem<T>* result = this->first_;
-			for (int i = 0; i < index; i++)
+		DoubleLLI<T>* result;
+		if (index <= middle) {
+			result = this->first_;
+			for (size_t i = 0; i < index; i++)
 			{
 				result = result->getNext();
-			}			
+			}
 		}
 		else {
-			LinkedListItem<T>* result = this->last_;
-			for (int i = size_-1; i > index / ; i--)
+			result = this->last_;
+			for (size_t i = this->size_ - 1; i > index; i--)
 			{
 				result = result->getPrev();
 			}
 		}
-		return result;		
+		return result;
 	}
 
 	template<typename T>
-	inline DoubleLinkedList<T>::LinkedListIterator::LinkedListIterator(LinkedListItem<T>* position) :
+	inline DoubleLinkedList<T>::LinkedListIterator::LinkedListIterator(DoubleLLI<T>* position) :
 		position_(position)
 	{
 	}
@@ -514,5 +524,5 @@ namespace structures
 		return *this;
 		//musím vrátiť ten objekt iterátor ktorý som modifikoval a to je ten objekt this
 	}
-	
+
 }

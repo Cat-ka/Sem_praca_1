@@ -207,7 +207,7 @@ namespace structures
 	inline int Array<T>::mapFunction(const int index) const
 	{
 		//vráti mi na ktorom indexe vo vectore sa nachádza ten môj požadovaný index po¾a
-		return index * sizeof(T);
+		return index * sizeof(T); 
 	}
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "structures/heap_monitor.h"
 #include <random>
 #include <iostream>
 #include <chrono>
