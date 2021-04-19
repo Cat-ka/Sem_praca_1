@@ -1,4 +1,4 @@
-#pragma once
+  #pragma once
 
 #include "../structure.h"
 
@@ -12,7 +12,7 @@ namespace structures
 	public:
 		/// <summary> Konstruktor. </summary>
 		/// <param name = "priority"> Priorita dat uchovavanych v prvku. </param>
-		/// <param name = "data"> Data, ktore uchovava. </param>
+		/// <param name = "data"> Data, ktore uchovava. </param> 
 		PriorityQueueItem(int priority, T data);
 
 		/// <summary> Kopirovaci konstruktor. </summary>

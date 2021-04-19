@@ -83,10 +83,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level1</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
+      <DisableSpecificWarnings>4100;4634;4400</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,20 +139,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="list_test.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="scenario.cpp" />
     <ClCompile Include="structures\ds_routines.cpp" />
     <ClCompile Include="structures\structure.cpp" />
     <ClCompile Include="structures\vector\vector.cpp" />
+    <ClCompile Include="testing\array2D_test.cpp" />
+    <ClCompile Include="testing\list_test.cpp" />
+    <ClCompile Include="testing\PriorityQueueTest.cpp" />
+    <ClCompile Include="testing\scenario\scenarioList.cpp" />
+    <ClCompile Include="testing\scenario\scenarioPriorityQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="array2Dcontiguous.h" />
-    <ClInclude Include="array2Dnoncontiguous.h" />
-    <ClInclude Include="ITest.h" />
-    <ClInclude Include="list_test.h" />
-    <ClInclude Include="array2D.h" />
-    <ClInclude Include="scenario.h" />
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue.h" />
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_limited_sorted_array_list.h" />
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_linked_list.h" />
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_list.h" />
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_sorted_array_list.h" />
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_two_lists.h" />
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_unsorted_array_list.h" />
     <ClInclude Include="structures\array\array.h" />
     <ClInclude Include="structures\ds_routines.h" />
     <ClInclude Include="structures\ds_structure_types.h" />
@@ -161,13 +166,6 @@
     <ClInclude Include="structures\list\linked_list.h" />
     <ClInclude Include="structures\list\list.h" />
     <ClInclude Include="structures\priority_queue\heap.h" />
-    <ClInclude Include="structures\priority_queue\priority_queue.h" />
-    <ClInclude Include="structures\priority_queue\priority_queue_limited_sorted_array_list.h" />
-    <ClInclude Include="structures\priority_queue\priority_queue_linked_list.h" />
-    <ClInclude Include="structures\priority_queue\priority_queue_list.h" />
-    <ClInclude Include="structures\priority_queue\priority_queue_sorted_array_list.h" />
-    <ClInclude Include="structures\priority_queue\priority_queue_two_lists.h" />
-    <ClInclude Include="structures\priority_queue\priority_queue_unsorted_array_list.h" />
     <ClInclude Include="structures\queue\explicit_queue.h" />
     <ClInclude Include="structures\queue\implicit_queue.h" />
     <ClInclude Include="structures\queue\queue.h" />
@@ -177,6 +175,15 @@
     <ClInclude Include="structures\structure.h" />
     <ClInclude Include="structures\structure_iterator.h" />
     <ClInclude Include="structures\vector\vector.h" />
+    <ClInclude Include="testing\array2D.h" />
+    <ClInclude Include="testing\array2Dcontiguous.h" />
+    <ClInclude Include="testing\array2Dnoncontiguous.h" />
+    <ClInclude Include="testing\array2D_test.h" />
+    <ClInclude Include="testing\ITest.h" />
+    <ClInclude Include="testing\list_test.h" />
+    <ClInclude Include="testing\PriorityQueueTest.h" />
+    <ClInclude Include="testing\scenario\scenarioList.h" />
+    <ClInclude Include="testing\scenario\scenarioPriorityQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram2.cd" />

@@ -78,7 +78,18 @@ namespace structures
 	template<typename T>
 	inline void PriorityQueueLinkedList<T>::push(const int priority, const T & data)
 	{
-		//TODO 06: PriorityQueueLinkedList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::push: Not implemented yet.");
+		//PriorityQueueItem<T>* item = new PriorityQueueItem<T>(priority, data);
+		//PriorityQueueList<T>::list_->add(item);
+
+		//alebo napíšem toto
+		this->list_->add(new PriorityQueueItem<T>(priority, data));
+
+		//toto sa používa preto aby sme vedeli z ktorého predka berieme ten atribút list_ 
+		//v C++ je možná viacnásobná dediènos
+		//môžeme k listu_ pristúpi preto, lebo v predkovi bol oznaèený ako protekted
+		//to že sme tu zavolali new, tak niekde v priorityQueueListe budeme musie zavola delete
+
+		//this->list_->add(item);
+		//aj toto by zobral
 	}
 }

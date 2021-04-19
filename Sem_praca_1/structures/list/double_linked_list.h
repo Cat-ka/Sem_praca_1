@@ -460,14 +460,14 @@ namespace structures
 		DoubleLLI<T>* result;
 		if (index <= middle) {
 			result = this->first_;
-			for (size_t i = 0; i < index; i++)
+			for (int i = 0; i < index; i++)
 			{
 				result = result->getNext();
 			}
 		}
 		else {
 			result = this->last_;
-			for (size_t i = this->size_ - 1; i > index; i--)
+			for (int i = this->size_ - 1; i > index; i--)
 			{
 				result = result->getPrev();
 			}

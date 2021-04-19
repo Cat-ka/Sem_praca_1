@@ -42,6 +42,9 @@
     <Filter Include="structures\array2D">
       <UniqueIdentifier>{98773d80-14ff-4c9a-96d7-a471ff5c6dc4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="testing\scenario">
+      <UniqueIdentifier>{dcd193f5-07a6-4a70-9e1c-c0dd21fd8917}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -53,13 +56,22 @@
     <ClCompile Include="structures\structure.cpp">
       <Filter>structures\common</Filter>
     </ClCompile>
-    <ClCompile Include="list_test.cpp">
-      <Filter>testing</Filter>
-    </ClCompile>
     <ClCompile Include="structures\vector\vector.cpp">
       <Filter>structures\vector</Filter>
     </ClCompile>
-    <ClCompile Include="scenario.cpp">
+    <ClCompile Include="testing\array2D_test.cpp">
+      <Filter>testing</Filter>
+    </ClCompile>
+    <ClCompile Include="testing\list_test.cpp">
+      <Filter>testing</Filter>
+    </ClCompile>
+    <ClCompile Include="testing\scenario\scenarioList.cpp">
+      <Filter>testing\scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="testing\scenario\scenarioPriorityQueue.cpp">
+      <Filter>testing\scenario</Filter>
+    </ClCompile>
+    <ClCompile Include="testing\PriorityQueueTest.cpp">
       <Filter>testing</Filter>
     </ClCompile>
   </ItemGroup>
@@ -79,30 +91,6 @@
     <ClInclude Include="structures\ds_structure_types.h">
       <Filter>ds</Filter>
     </ClInclude>
-    <ClInclude Include="structures\priority_queue\heap.h">
-      <Filter>structures\priority_queue</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\priority_queue\priority_queue.h">
-      <Filter>structures\priority_queue</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\priority_queue\priority_queue_limited_sorted_array_list.h">
-      <Filter>structures\priority_queue</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\priority_queue\priority_queue_linked_list.h">
-      <Filter>structures\priority_queue</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\priority_queue\priority_queue_list.h">
-      <Filter>structures\priority_queue</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\priority_queue\priority_queue_sorted_array_list.h">
-      <Filter>structures\priority_queue</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\priority_queue\priority_queue_two_lists.h">
-      <Filter>structures\priority_queue</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\priority_queue\priority_queue_unsorted_array_list.h">
-      <Filter>structures\priority_queue</Filter>
-    </ClInclude>
     <ClInclude Include="structures\stack\explicit_stack.h">
       <Filter>structures\stack</Filter>
     </ClInclude>
@@ -121,12 +109,6 @@
     <ClInclude Include="structures\queue\queue.h">
       <Filter>structures\queue</Filter>
     </ClInclude>
-    <ClInclude Include="ITest.h">
-      <Filter>testing</Filter>
-    </ClInclude>
-    <ClInclude Include="list_test.h">
-      <Filter>testing</Filter>
-    </ClInclude>
     <ClInclude Include="structures\vector\vector.h">
       <Filter>structures\vector</Filter>
     </ClInclude>
@@ -142,20 +124,59 @@
     <ClInclude Include="structures\list\list.h">
       <Filter>structures\list</Filter>
     </ClInclude>
-    <ClInclude Include="scenario.h">
-      <Filter>testing</Filter>
-    </ClInclude>
     <ClInclude Include="structures\list\double_linked_list.h">
       <Filter>structures\list</Filter>
     </ClInclude>
-    <ClInclude Include="array2D.h">
-      <Filter>structures\array2D</Filter>
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue.h">
+      <Filter>structures\priority_queue</Filter>
     </ClInclude>
-    <ClInclude Include="array2Dcontiguous.h">
-      <Filter>structures\array2D</Filter>
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_limited_sorted_array_list.h">
+      <Filter>structures\priority_queue</Filter>
     </ClInclude>
-    <ClInclude Include="array2Dnoncontiguous.h">
-      <Filter>structures\array2D</Filter>
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_linked_list.h">
+      <Filter>structures\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_list.h">
+      <Filter>structures\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_sorted_array_list.h">
+      <Filter>structures\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_two_lists.h">
+      <Filter>structures\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_unsorted_array_list.h">
+      <Filter>structures\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="testing\array2D.h">
+      <Filter>testing</Filter>
+    </ClInclude>
+    <ClInclude Include="testing\array2D_test.h">
+      <Filter>testing</Filter>
+    </ClInclude>
+    <ClInclude Include="testing\array2Dcontiguous.h">
+      <Filter>testing</Filter>
+    </ClInclude>
+    <ClInclude Include="testing\array2Dnoncontiguous.h">
+      <Filter>testing</Filter>
+    </ClInclude>
+    <ClInclude Include="testing\ITest.h">
+      <Filter>testing</Filter>
+    </ClInclude>
+    <ClInclude Include="testing\list_test.h">
+      <Filter>testing</Filter>
+    </ClInclude>
+    <ClInclude Include="testing\scenario\scenarioList.h">
+      <Filter>testing\scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="testing\scenario\scenarioPriorityQueue.h">
+      <Filter>testing\scenario</Filter>
+    </ClInclude>
+    <ClInclude Include="testing\PriorityQueueTest.h">
+      <Filter>testing</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\priority_queue\heap.h">
+      <Filter>structures\priority_queue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -211,7 +211,7 @@ namespace structures
 
 	template<typename T>
 	inline T& ArrayList<T>::operator[](const int index)
-	{
+  	{
 		DSRoutines::rangeCheckExcept(index, this->size_, "T& ArrayList<T>::operator[]: invalid index.");
 		//vraciam originál a zase musím dereferencova, aby som dostala objekt, lebo array_ je pointer
 		//pomocou tohto vieme zapisova a aj èíta
@@ -282,9 +282,9 @@ namespace structures
 			this->size_ = this->size_ - 1;
 			return removed;
 		}
-		else {			
+		//else {			
 			//std::cout << "The list is empty. Nothing to delete." << std::endl;
-		}
+		//}
 	}
 
 	template<typename T>

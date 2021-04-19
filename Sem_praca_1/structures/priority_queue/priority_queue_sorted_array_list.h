@@ -81,18 +81,50 @@ namespace structures
 		}
 		return *this;
 	}
-  
+
 	template<typename T>
 	inline void PriorityQueueSortedArrayList<T>::push(const int priority, const T& data)
 	{
-		//TODO 06: PriorityQueueList
-		throw std::exception("PriorityQueueSortedArrayList<T>::push: Not implemented yet.");
+		PriorityQueueItem<T>* item = new PriorityQueueItem<T>(priority, data);
+		int i = static_cast<int>(PriorityQueueList<T>::list_->size()) - 1;
+		if (static_cast<int>(PriorityQueueList<T>::list_->size()) < 1 ||
+			(*PriorityQueueList<T>::list_)[i]->getPriority() >= priority)
+		{
+
+
+			PriorityQueueList<T>::list_->add(item);
+		}
+		else
+		{
+			for (int j = 0; j < static_cast<int>(PriorityQueueList<T>::list_->size()); j++)
+			{
+				if ((*PriorityQueueList<T>::list_)[j]->getPriority() <= priority)
+				{
+					PriorityQueueList<T>::list_->insert(item, j);
+					break;
+				}
+			}
+
+		}
+		
 	}
 
 	template<typename T>
 	inline int PriorityQueueSortedArrayList<T>::indexOfPeek() const
 	{
-		//TODO 06: PriorityQueueList
-		throw std::exception("PriorityQueueSortedArrayList<T>::indexOfPeek: Not implemented yet.");
+		//a  ak je zoznam pr·zdny tak vyhod v˝nimku
+		if (PriorityQueueList<T>::list_->size() < 1)
+		{
+			throw std::logic_error("PriorityQueueSortedArrayList<T>::indexOfPeek() : Priority queue is empty.");
+		}
+		else
+		{
+			//return static_cast<int>(this->list_->size()) - 1;
+		//pre dodrûanie konvencie by sme to mohli aj takto napÌsaù
+			return static_cast<int>(PriorityQueueList<T>::list_->size()) - 1;
+		}
+
+		//return static_cast<int>(this->size()) - 1;
+		//this->size() - je to size prioritnÈho frontu a t· je zhodn· so sizom listu, preto mÙûem napÌsaù min dvoma spÙsobmi
 	}
 }

@@ -39,7 +39,7 @@ namespace structures
 		/// <param name = "data"> Vkladany prvok. </param>
 		/// <exception cref="std::logic_error"> Vyhodena, ak je prioritny front plny. </exception>  
 		void push(const int priority, const T& data) override;
-		
+
 		/// <summary>
 		///  Vlozi prvok s danou prioritou do prioritneho frontu implementovaneho utriednym ArrayList-om s obmedzenou kapacitou.
 		///  V pripade, ze je prioritny front plny, odstrani polozku s najmensou prioritou z prioritneho frontu a vrati smernik na nu. 
@@ -62,6 +62,8 @@ namespace structures
 		/// <param name = "capacity"> Nova kapacita. </param>
 		/// <returns> true, ak sa kapacitu podarilo zmenit, false inak. </returns>
 		bool trySetCapacity(size_t capacity);
+
+		size_t getCapacity();
 
 	private:
 		/// <summary> Kapacita prioritneho frontu. </summary>
@@ -97,35 +99,79 @@ namespace structures
 	template<typename T>
 	inline PriorityQueueLimitedSortedArrayList<T>& PriorityQueueLimitedSortedArrayList<T>::operator=(const PriorityQueueLimitedSortedArrayList<T>& other)
 	{
-		//TODO 06: PriorityQueueLimitedSortedArrayList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::operator=: Not implemented yet.");
+		if (this != &other)
+		{
+			PriorityQueueSortedArrayList<T>::operator=(other);
+			this->capacity_ = other.capacity_;
+		}
+		return *this;
 	}
 
 	template<typename T>
-	void PriorityQueueLimitedSortedArrayList<T>::push(const int priority, const T & data)
+	void PriorityQueueLimitedSortedArrayList<T>::push(const int priority, const T& data)
 	{
-		//TODO 06: PriorityQueueLimitedSortedArrayList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::push: Not implemented yet.");
+		if (capacity_ >= list_->size()) {
+			PriorityQueueSortedArrayList<T>::push(priority, data);
+		}
+		else
+		{
+			throw std::logic_error("PriorityQueueLimitedSortedArrayList<T>::push : Priority queue is full.");
+		}
 	}
 
 	template<typename T>
-	inline PriorityQueueItem<T>* PriorityQueueLimitedSortedArrayList<T>::pushAndRemove(const int priority, const T & data)
+	inline PriorityQueueItem<T>* PriorityQueueLimitedSortedArrayList<T>::pushAndRemove(const int priority, const T& data)
 	{
-		//TODO 06: PriorityQueueLimitedSortedArrayList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::pushAndRemove: Not implemented yet.");
+		PriorityQueueSortedArrayList<T>::push(priority, data);
+		if (this->capacity_ < list_->size())
+		{
+			return this->list_->removeAt(0);
+		}
+		else
+		{
+			return nullptr;
+		}
+
+
+		/// <summary>
+		///  Vlozi prvok s danou prioritou do prioritneho frontu implementovaneho utriednym ArrayList-om s obmedzenou kapacitou.
+		///  V pripade, ze je prioritny front plny, odstrani polozku s najmensou prioritou z prioritneho frontu a vrati smernik na nu. 
+		///  V opacnom pripade vrati nullptr. 
+		/// </summary>
+		/// <param name = "priority"> Priorita vkladaneho prvku. </param>
+		/// <param name = "data"> Vkladany prvok. </param>
+		/// <returns> Smernik na odstranenu polozku alebo nullptr. </returns>
+
 	}
 
 	template<typename T>
 	inline int PriorityQueueLimitedSortedArrayList<T>::minPriority() const
 	{
-		//TODO 06: PriorityQueueLimitedSortedArrayList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::minPriority: Not implemented yet.");
+		if (list_->size() < 1)
+		{
+			throw std::logic_error("PriorityQueueLimitedSortedArrayList<T>::minPriority() : Priority queue is empty.");
+		}
+		else
+		{
+			return (*list_)[0]->PriorityQueueItem<T>::getPriority();
+		}
 	}
 
 	template<typename T>
 	inline bool PriorityQueueLimitedSortedArrayList<T>::trySetCapacity(size_t capacity)
 	{
-		//TODO 06: PriorityQueueLimitedSortedArrayList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::trySetCapacity: Not implemented yet.");
+		if (capacity > list_->size()) {
+			this->capacity_ = capacity;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	template<typename T>
+	inline size_t PriorityQueueLimitedSortedArrayList<T>::getCapacity()
+	{
+		return capacity_;
 	}
 }

@@ -87,13 +87,16 @@ namespace structures
 		PriorityQueueList<T>(dynamic_cast<List<PriorityQueueItem<T>*>*>(other.list_->clone()))
 	{
 		list_->clear();
-		*this = other;
+		delete this->list_;
+		this->list_ = nullptr;
 	}
 
 	template<typename T>
 	inline PriorityQueueList<T>::~PriorityQueueList()
 	{
-		//TODO 06: PriorityQueueList
+		this->clear();
+		delete this->list_;
+		this->list_ = nullptr;
 	}
 
 	template<typename T>
@@ -109,56 +112,98 @@ namespace structures
 	template<typename T>
 	inline PriorityQueueList<T>& PriorityQueueList<T>::operator=(const PriorityQueueList<T>& other)
 	{
-		//TODO 06: PriorityQueueList
-		throw std::exception("PriorityQueueList<T>::operator=: Not implemented yet.");
+		if (this != &other)
+		{
+			this->clear();
+			for (PriorityQueueItem<T>* item : *other.list_)
+			{
+				this->list_->add(new PriorityQueueItem<T>(*item));
+			}
+		}
+		return *this;
 	}
 
 	template<typename T>
 	inline size_t PriorityQueueList<T>::size() const
 	{
-		//TODO 06: PriorityQueueList
-		throw std::exception("PriorityQueueList<T>::size: Not implemented yet.");
+		return list_->size();
 	}
 
 	template<typename T>
 	inline void PriorityQueueList<T>::clear()
 	{
-		//TODO 06: PriorityQueueList
-		throw std::exception("PriorityQueueList<T>::clear: Not implemented yet.");
+		//kedûe neviem Ëi mi do cyklu for each vstupuje ArrayList alebo LinkedList, musÌm pouûiù for each cyklus
+		//ktor˝ m· v oboch prÌpadoch garantovan˙ n-kov˙ zloûitosù
+		for (PriorityQueueItem<T>* item : *this->list_)
+		{
+			delete item;
+		}
+		this->list_->clear();
 	}
 
 	template<typename T>
 	inline int PriorityQueueList<T>::indexOfPeek() const
 	{
-		//TODO 06: PriorityQueueList
-		throw std::exception("PriorityQueueList<T>::indexOfPeek: Not implemented yet.");
+		//tu si dam do maxPriority bud prioritu Ëo ma prv˝ prvok, alebo dam nejak˙ vysoku.
+		//standardne sme d·vali max Integer
+		//index si d·m na 0
+		//urobili sme to tak, ûe sme dali prioritu prvku 0 a ak n·jde prvok s vyööou prioritou tak to zmenÌ, ak nie, tak prvok na indexe 0 
+		//m· najvyööiiu prioritu a vr·ti index 0
+		if (this->list_->size() < 1)
+		{
+			throw std::logic_error("PriorityQueueList<T>::indexOfPeek() : Priority queue is empty.");
+		}
+		else {
+			int maxPriority = (*this->list_)[0]->getPriority();
+			int indexOfMaxPriority = 0;
+			int i = 0;
+			for (PriorityQueueItem<T>* item : *this->list_)
+			{
+				if (item->getPriority() < maxPriority)
+				{
+					maxPriority = item->getPriority();
+					indexOfMaxPriority = i;
+				}
+				i++;
+			}
+			return indexOfMaxPriority;
+		}
 	}
 
 	template<typename T>
 	inline T PriorityQueueList<T>::pop()
 	{
-		//TODO 06: PriorityQueueList
-		throw std::exception("PriorityQueueList<T>::pop: Not implemented yet.");
+		//popujem prvok na indexe peeku
+		int index = this->indexOfPeek();
+		//do vytvorenÈho itemu vloûÌm mazan˝ prvok, potom sprÌstupnÌm data na Úom a a idem rovno vymaûem kvÙli memory leakom
+		PriorityQueueItem<T>* item = this->list_->removeAt(index);
+		T data = item->accessData();
+		delete item;
+		//a vr·tim data, do ktor˝ch som si uloûila d·ta
+		return data;
 	}
 
 	template<typename T>
-	inline T & PriorityQueueList<T>::peek()
+	inline T& PriorityQueueList<T>::peek()
 	{
-		//TODO 06: PriorityQueueList
-		throw std::exception("PriorityQueueList<T>::peek: Not implemented yet.");
+		int index = this->indexOfPeek();
+		return (*this->list_)[index]->accessData();
 	}
 
 	template<typename T>
 	inline const T PriorityQueueList<T>::peek() const
 	{
-		//TODO 06: PriorityQueueList
-		throw std::exception("PriorityQueueList<T>::peek: Not implemented yet.");
+		int index = this->indexOfPeek();
+		return (*this->list_)[index]->accessData();
 	}
 
 	template<typename T>
 	inline int PriorityQueueList<T>::peekPriority() const
 	{
-		//TODO 06: PriorityQueueList
-		throw std::exception("PriorityQueueList<T>::peekPriority: Not implemented yet.");
+		//t·to funkcia mi vr·ti t˙ maxim·lnu prioritu, ktor˙ tam m·m uloûen˙
+		//to najmenöie ËÌslo priority
+		//to viem ûe je na tom indexOfPeek, tak to pouûijem
+		int temp = this->indexOfPeek();
+		return (*this->list_)[temp]->getPriority();
 	}
 }
