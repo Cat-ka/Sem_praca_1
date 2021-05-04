@@ -1,24 +1,26 @@
+
+#include "structures/structure.h"
 #include <iostream>
 #include "testing/list_test.h"
 #include "testing/PriorityQueueTest.h"
-#include "structures/heap_monitor.h"
-#include "structures/list/list.h"
-#include "structures/array/array.h"
-#include "structures/list/array_list.h"
-#include "structures/list/double_linked_list.h"
 #include "testing/array2D_test.h"
+#include "structures/array2D/array2D.h"
+#include "structures/array2D/array2Dcontiguous.h"
+#include "structures/array2D/array2Dnoncontiguous.h"
+#include "structures/heap_monitor.h"
+#include "../../AUS/structures/heap_monitor.h"
 
-#include "testing/scenario/scenarioList.h"
+
 
 using namespace structures;
 using namespace std;
 
-int main() {
+
+int main()
+{
 	initHeapMonitor();
 
 	cout << "Zacinam testovat.  \n \n" << endl;
-	ListTest* testuj = new ListTest();
-	PriorityQueueTest* testujQueue = new PriorityQueueTest();
 
 	int adt;
 	char scenar;
@@ -34,33 +36,47 @@ int main() {
 	cout << "Vasa volba: ";
 	cin >> adt;
 
+	if (adt == 4 || adt == 5) {
+		cout << "Vyberte typ scenara na testovanie: \n";
+		cout << "A - sucet matic\n";
+		cout << "B - sucin matic \n";
+		cout << "Vasa volba: ";
+	}
+	else
+	{
+		cout << "Vyberte typ scenara na testovanie: \n";
+		cout << "A \n";
+		cout << "B \n";
+		cout << "C \n";
+		cout << "X - vlastny scenar \n";
+		cout << "Vasa volba: ";
+	}
 
-
-	cout << "Vyberte typ scenara na testovanie: \n";
-	cout << "A \n";
-	cout << "B \n";
-	cout << "C \n";
-	cout << "X - vlastny scenar \n";
-	cout << "Vasa volba: ";
 	cin >> scenar;
 	scenar = toupper(scenar);
 
 	if (adt == 1 || adt == 2 || adt == 3)
 	{
+		ListTest* testuj = new ListTest();
 		ScenarioList* vyberScenar = new ScenarioList(scenar);
 		testuj->vyberADT(adt, scenar);
 		testuj->runTesting(scenar);
-		delete testuj;
 		delete vyberScenar;
+		delete testuj;
 	}
 	else if (adt == 6 || adt == 7 || adt == 8)
 	{
+		PriorityQueueTest* testujQueue = new PriorityQueueTest();
 		ScenarioPriorityQueue* vyberScenar = new ScenarioPriorityQueue(scenar);
 		testujQueue->vyberADT(adt, scenar);
 		testujQueue->runTesting(scenar);
+		delete vyberScenar;
+		delete testujQueue;
 	}
-
+	else if (adt == 4 || adt == 5)
+	{
+		Array2D_test* testujArray = new Array2D_test();
+		testujArray->runTesting(adt, scenar);
+	}	
 	return 0;
-
-
 }

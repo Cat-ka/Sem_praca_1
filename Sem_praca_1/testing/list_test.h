@@ -36,7 +36,7 @@ private:
 	ITest<int>* testujem;
 	ScenarioList s_;
 	
-	double pocetOpakovani = 1000;
+	double pocetOpakovani = 100;
 	double tempAdd;
 	double tempRemove;
 	double tempSet;

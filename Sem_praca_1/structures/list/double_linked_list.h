@@ -343,7 +343,7 @@ namespace structures
 			}
 			else {
 				DoubleLLI<T>* prev = this->getItemAtIndex(index - 1);
-				DoubleLLI<T>* next = this->getItemAtIndex(index + 1);
+				DoubleLLI<T>* next = this->getItemAtIndex(index);
 				newItem->setNext(prev->getNext());
 				prev->setNext(newItem);
 				newItem->setPrev(prev);
@@ -455,8 +455,8 @@ namespace structures
 	template<typename T>
 	inline DoubleLLI<T>* DoubleLinkedList<T>::getItemAtIndex(int index) const
 	{
-		DSRoutines::rangeCheckExcept(index, size_, "DoubleLinkedList<T>::getItemAtIndex: invalid index.");
-		int middle = index / 2;
+		DSRoutines::rangeCheckExcept(index, size_, "DoubleLinkedList<T>::getItemAtIndex: invalid index.");  		
+		int middle = this->size_ / 2;
 		DoubleLLI<T>* result;
 		if (index <= middle) {
 			result = this->first_;

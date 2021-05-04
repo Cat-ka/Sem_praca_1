@@ -15,9 +15,6 @@
     <Filter Include="structures">
       <UniqueIdentifier>{9967d492-d5f7-448d-8aca-56e8e332ffb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="structures\common">
-      <UniqueIdentifier>{b7a35dbe-fa5b-48a7-bd71-d4e2d1b73f27}</UniqueIdentifier>
-    </Filter>
     <Filter Include="structures\vector">
       <UniqueIdentifier>{4d1241c8-4bb0-4583-bd87-d835101efb5d}</UniqueIdentifier>
     </Filter>
@@ -39,22 +36,16 @@
     <Filter Include="testing">
       <UniqueIdentifier>{58b92f8c-917c-4f52-a94a-e575cf17968c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="structures\array2D">
-      <UniqueIdentifier>{98773d80-14ff-4c9a-96d7-a471ff5c6dc4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="testing\scenario">
       <UniqueIdentifier>{dcd193f5-07a6-4a70-9e1c-c0dd21fd8917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structures\array2D">
+      <UniqueIdentifier>{0efa601d-5c15-42ad-9ebd-a9fbc3b5f32a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="structures\ds_routines.cpp">
-      <Filter>ds</Filter>
-    </ClCompile>
-    <ClCompile Include="structures\structure.cpp">
-      <Filter>structures\common</Filter>
     </ClCompile>
     <ClCompile Include="structures\vector\vector.cpp">
       <Filter>structures\vector</Filter>
@@ -74,23 +65,14 @@
     <ClCompile Include="testing\PriorityQueueTest.cpp">
       <Filter>testing</Filter>
     </ClCompile>
+    <ClCompile Include="structures\structure.cpp">
+      <Filter>structures</Filter>
+    </ClCompile>
+    <ClCompile Include="structures\ds_routines.cpp">
+      <Filter>structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="structures\ds_routines.h">
-      <Filter>ds</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\heap_monitor.h">
-      <Filter>ds</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\structure.h">
-      <Filter>structures\common</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\structure_iterator.h">
-      <Filter>structures\common</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\ds_structure_types.h">
-      <Filter>ds</Filter>
-    </ClInclude>
     <ClInclude Include="structures\stack\explicit_stack.h">
       <Filter>structures\stack</Filter>
     </ClInclude>
@@ -148,16 +130,7 @@
     <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_unsorted_array_list.h">
       <Filter>structures\priority_queue</Filter>
     </ClInclude>
-    <ClInclude Include="testing\array2D.h">
-      <Filter>testing</Filter>
-    </ClInclude>
     <ClInclude Include="testing\array2D_test.h">
-      <Filter>testing</Filter>
-    </ClInclude>
-    <ClInclude Include="testing\array2Dcontiguous.h">
-      <Filter>testing</Filter>
-    </ClInclude>
-    <ClInclude Include="testing\array2Dnoncontiguous.h">
       <Filter>testing</Filter>
     </ClInclude>
     <ClInclude Include="testing\ITest.h">
@@ -177,6 +150,30 @@
     </ClInclude>
     <ClInclude Include="structures\priority_queue\heap.h">
       <Filter>structures\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\array2D\array2D.h">
+      <Filter>structures\array2D</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\array2D\array2Dcontiguous.h">
+      <Filter>structures\array2D</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\array2D\array2Dnoncontiguous.h">
+      <Filter>structures\array2D</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\structure.h">
+      <Filter>structures</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\structure_iterator.h">
+      <Filter>structures</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\ds_routines.h">
+      <Filter>structures</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\ds_structure_types.h">
+      <Filter>structures</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\heap_monitor.h">
+      <Filter>structures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

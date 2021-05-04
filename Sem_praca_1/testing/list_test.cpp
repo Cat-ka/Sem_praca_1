@@ -16,6 +16,8 @@ ListTest::~ListTest()
 {
 	delete this->list_;
 	this->list_ = nullptr;
+	delete this->testujem;
+	this->testujem = nullptr;
 	tempAdd = 0;
 	tempRemove = 0;
 	tempSet = 0;
@@ -96,7 +98,7 @@ void ListTest::add()
 {
 	int temp = this->generating(0, 2);
 	int data = this->generating(0, 100);
-	int actualSize = 0;
+	int actualSize = this->list_->size();
 	switch (temp)
 	{
 	case 0:
@@ -112,8 +114,15 @@ void ListTest::add()
 		operation = "add_begin";
 		break;
 	default:
+		int index;
+		if (actualSize > 0) {
+			index = this->generating(0, actualSize - 1);
+		}
+		else {
+			index = 0;
+		}
 		start = high_resolution_clock::now();
-		this->list_->insert(data, this->list_->size());
+		this->list_->insert(data, index);
 		stop = high_resolution_clock::now();
 		operation = "add_on_index";
 		break;

@@ -1,37 +1,46 @@
 #pragma once
 
-#include "array2D.h"
-#include "array2Dcontiguous.h"
-#include "array2Dnoncontiguous.h"
+#include "../structures/array2D/array2D.h"
+#include "../structures/array2D/array2Dcontiguous.h"
+#include "../structures/array2D/array2Dnoncontiguous.h"
+#include "../structures/heap_monitor.h"
+#include "ITest.h"
 #include <iostream>
-#include "array2Dcontiguous.h"
-#include "array2Dnoncontiguous.h"
+#include <fstream>
+
 
 using namespace structures;
 using namespace std;
 
-class Array2D_test 
+class Array2D_test
 {
 public:
-
-	
-	//VytvaracSuvislychMatic<int> vsmi;
-	//VytvaracNesuvislychMatic<int> vnmi;
-
-
-	Array2D_test(int nRows, int nColumn, int initValue);
+	Array2D_test();
 	~Array2D_test();
 
-	Array2D<int>& chooseArray2D(int adt, char scenario);
+	void nasobenie(Array2D<int>& first, Array2D<int>& second, Array2D<int>& result);
+	void scitanie(Array2D<int>& first, Array2D<int>& second, Array2D<int>& result);
+	void runTesting(int adt, char scenario);
+	void zapis(string fileName, int columns, int trvanie, int sizeOf);
 
 private:
-	Array2Dcontiguous<int>* array2D_;
-	Array2Dnoncontiguous<int>* array2D_non;
+	int n;
+	int m;
+
 	int nRows_;
 	int nColumns_;
 	int initValue_;
 	string fileName;
-	
+	ITest<int>* testujem;
+	Array2D<int>* array2D_;
+
+	std::chrono::steady_clock::time_point start;
+	std::chrono::steady_clock::time_point stop;
+	std::chrono::microseconds duration;
+
+
+
+
 };
 
 

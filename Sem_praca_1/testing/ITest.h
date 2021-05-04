@@ -57,17 +57,6 @@ inline void ITest<T>::zapis(string fileName, string operation, int trvanie, int 
 	file.close();
 }
 
-/*
-template<typename T>
-inline void ITest<T>::vypis(List<T> list)
-{
-	for (size_t i = 0; i < list->size(); i++)
-	{
-		cout << this->list_->operator[](i) << " ";
-	}
-	cout << endl;
-}
-*/
 
 
 

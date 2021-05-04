@@ -92,6 +92,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>/LIBPATH:dir</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -157,6 +158,9 @@
     <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_sorted_array_list.h" />
     <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_two_lists.h" />
     <ClInclude Include="..\..\AUS\structures\priority_queue\priority_queue_unsorted_array_list.h" />
+    <ClInclude Include="structures\array2D\array2D.h" />
+    <ClInclude Include="structures\array2D\array2Dcontiguous.h" />
+    <ClInclude Include="structures\array2D\array2Dnoncontiguous.h" />
     <ClInclude Include="structures\array\array.h" />
     <ClInclude Include="structures\ds_routines.h" />
     <ClInclude Include="structures\ds_structure_types.h" />
@@ -175,9 +179,6 @@
     <ClInclude Include="structures\structure.h" />
     <ClInclude Include="structures\structure_iterator.h" />
     <ClInclude Include="structures\vector\vector.h" />
-    <ClInclude Include="testing\array2D.h" />
-    <ClInclude Include="testing\array2Dcontiguous.h" />
-    <ClInclude Include="testing\array2Dnoncontiguous.h" />
     <ClInclude Include="testing\array2D_test.h" />
     <ClInclude Include="testing\ITest.h" />
     <ClInclude Include="testing\list_test.h" />
