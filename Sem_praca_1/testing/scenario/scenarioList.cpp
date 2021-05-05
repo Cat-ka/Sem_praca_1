@@ -10,7 +10,6 @@ ScenarioList::ScenarioList()
 {
 }
 
-
 ScenarioList::ScenarioList(char scenario)
 {
 	testingScenarioList = scenario;

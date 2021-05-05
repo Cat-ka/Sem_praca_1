@@ -22,21 +22,20 @@ public:
 	~ListTest();
 	
 	void runTesting(char& scenario);	
-
 	void add();
 	void remove();
 	void set();
-	void index();
-	List<int>& vyberADT(int adt, char scenar);
-	void vypis();
+	void index();	
+	void print();
+	List<int>& chooseADT(int adt, char scenar);
 
 
 private:
 	List<int>* list_;
-	ITest<int>* testujem;
+	ITest<int>* testing;
 	ScenarioList s_;
 	
-	double pocetOpakovani = 100;
+	double numberOfRepeating = 100000;
 	double tempAdd;
 	double tempRemove;
 	double tempSet;

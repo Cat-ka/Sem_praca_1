@@ -22,7 +22,7 @@ public:
 	void scitanie(Array2D<int>& first, Array2D<int>& second, Array2D<int>& result);
 	void runTesting(int adt, char scenario);
 	void zapis(string fileName, int columns, int trvanie, int sizeOf);
-
+	
 private:
 	int n;
 	int m;

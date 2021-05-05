@@ -111,7 +111,7 @@ void PriorityQueueTest::makeOperation(int number)
 	duration = duration_cast<nanoseconds>(stop - start);
 	actualSize = this->queue_->size();
 	cout << "F: " << operationName << " T: " << duration.count() << " nanoseconds, S: " << actualSize << endl;	
-	testujem->zapis(this->fileName, operationName, duration.count(), actualSize);
+	testujem->writeCSV(this->fileName, operationName, duration.count(), actualSize);
 }
 
 PriorityQueue<int>& PriorityQueueTest::vyberADT(int adt, char scenar)

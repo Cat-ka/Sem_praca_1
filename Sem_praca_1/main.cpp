@@ -10,11 +10,8 @@
 #include "structures/heap_monitor.h"
 #include "../../AUS/structures/heap_monitor.h"
 
-
-
 using namespace structures;
 using namespace std;
-
 
 int main()
 {
@@ -59,7 +56,7 @@ int main()
 	{
 		ListTest* testuj = new ListTest();
 		ScenarioList* vyberScenar = new ScenarioList(scenar);
-		testuj->vyberADT(adt, scenar);
+		testuj->chooseADT(adt, scenar);
 		testuj->runTesting(scenar);
 		delete vyberScenar;
 		delete testuj;

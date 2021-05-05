@@ -7,7 +7,6 @@
 #include <ctime>
 #include <string>
 
-//using namespace std::chrono
 using namespace std;
 
 template<typename T>
@@ -17,15 +16,8 @@ public:
 	~ITest();
 
 	int generating(int min, int max);
-	void zapis(string fileName, string operation, int trvanie, int sizeOf);
-	//void vypis(List<T> list);
-
-
-	
-protected:
-
+	void writeCSV(string fileName, string operation, int time, int sizeOf);	
 };
-
 
 template<typename T>
 inline ITest<T>::ITest()
@@ -44,16 +36,15 @@ inline int ITest<T>::generating(int min, int max)
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> dis(min, max);
 	int genNumber = dis(gen);
-	//std::cout << "Generovane cislo: " << genNumber << std::endl;
 	return genNumber;
 }
 
 template<typename T>
-inline void ITest<T>::zapis(string fileName, string operation, int trvanie, int sizeOf)
+inline void ITest<T>::writeCSV(string fileName, string operation, int time, int sizeOf)
 {
 	ofstream file;
 	file.open(fileName, ios_base::app);
-	file << operation << ", " << trvanie << ", " << sizeOf << endl;
+	file << operation << ", " << time << ", " << sizeOf << endl;
 	file.close();
 }
 

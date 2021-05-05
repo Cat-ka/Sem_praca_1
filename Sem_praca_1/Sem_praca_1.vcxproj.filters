@@ -53,9 +53,6 @@
     <ClCompile Include="testing\array2D_test.cpp">
       <Filter>testing</Filter>
     </ClCompile>
-    <ClCompile Include="testing\list_test.cpp">
-      <Filter>testing</Filter>
-    </ClCompile>
     <ClCompile Include="testing\scenario\scenarioList.cpp">
       <Filter>testing\scenario</Filter>
     </ClCompile>
@@ -70,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="structures\ds_routines.cpp">
       <Filter>structures</Filter>
+    </ClCompile>
+    <ClCompile Include="testing\list_test.cpp">
+      <Filter>testing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +177,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

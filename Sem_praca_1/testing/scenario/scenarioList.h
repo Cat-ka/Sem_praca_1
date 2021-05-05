@@ -29,5 +29,4 @@ private:
 	int counterIndex;
 	int percentPomer;
 	char testingScenarioList;
-	//Array<int>* setScenarioList;
 };

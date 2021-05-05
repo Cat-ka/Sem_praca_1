@@ -3,7 +3,6 @@
 
 using namespace std::chrono;
 
-
 ListTest::ListTest()
 {
 	tempAdd = 0;
@@ -16,15 +15,15 @@ ListTest::~ListTest()
 {
 	delete this->list_;
 	this->list_ = nullptr;
-	delete this->testujem;
-	this->testujem = nullptr;
+	delete this->testing;
+	this->testing = nullptr;
 	tempAdd = 0;
 	tempRemove = 0;
 	tempSet = 0;
 	tempIndex = 0;
 }
 
-List<int>& ListTest::vyberADT(int adt, char scenar)
+List<int>& ListTest::chooseADT(int adt, char scenar)
 {
 	string name;
 	name.append(1, scenar);
@@ -52,33 +51,33 @@ void ListTest::runTesting(char& scenario)
 	int cRem = s_.ifCounterRemove(scenario);
 	int cSet = s_.ifCounterSet(scenario);
 	int cInd = s_.ifCounterIndex(scenario);
-	for (int i = 0; i < this->pocetOpakovani; i++)
+	for (int i = 0; i < this->numberOfRepeating; i++)
 	{
 		int pocetOperacii = generating(1, 100);
-		if ((pocetOperacii < cAdd) && (tempAdd < (pocetOpakovani / 100 * cAdd))) {
+		if ((pocetOperacii < cAdd) && (tempAdd < (numberOfRepeating / 100 * cAdd))) {
 			tempAdd++;
 			add();
 		}
-		else if ((pocetOperacii < (cAdd + cRem)) && (tempRemove < (pocetOpakovani / 100 * cRem))) {
+		else if ((pocetOperacii < (cAdd + cRem)) && (tempRemove < (numberOfRepeating / 100 * cRem))) {
 			tempRemove++;
 			remove();
 		}
-		else if ((pocetOperacii < (cAdd + cRem + cSet)) && (tempSet < (pocetOpakovani / 100 * cSet))) {
+		else if ((pocetOperacii < (cAdd + cRem + cSet)) && (tempSet < (numberOfRepeating / 100 * cSet))) {
 			tempSet++;
 			set();
 		}
-		else if (tempIndex < (pocetOpakovani / 100 * cInd)) {
+		else if (tempIndex < (numberOfRepeating / 100 * cInd)) {
 			tempIndex++;
 			index();
 		}
 		else
 		{
-			if (tempAdd < (pocetOpakovani / 100 * cAdd))
+			if (tempAdd < (numberOfRepeating / 100 * cAdd))
 			{
 				tempAdd++;
 				add();
 			}
-			else if (tempRemove < (pocetOpakovani / 100 * cRem))
+			else if (tempRemove < (numberOfRepeating / 100 * cRem))
 			{
 				tempRemove++;
 				remove();
@@ -130,7 +129,7 @@ void ListTest::add()
 	duration = duration_cast<nanoseconds>(stop - start);
 	actualSize = this->list_->size();
 	//cout << "F: " << operation << " T: " << duration.count() << " nanoseconds, S: " << actualSize << endl;
-	zapis(this->fileName, operation, duration.count(), actualSize);
+	writeCSV(this->fileName, operation, duration.count(), actualSize);
 }
 
 void ListTest::remove()
@@ -167,7 +166,7 @@ void ListTest::remove()
 	duration = duration_cast<nanoseconds>(stop - start);
 	actualSize = this->list_->size();
 	//cout << "F: " << operation << " T: " << duration.count() << " nanoseconds, S: " << actualSize << endl;
-	zapis(this->fileName, operation, duration.count(), actualSize);
+	writeCSV(this->fileName, operation, duration.count(), actualSize);
 }
 
 void ListTest::set()
@@ -204,7 +203,7 @@ void ListTest::set()
 	duration = duration_cast<nanoseconds>(stop - start);
 	actualSize = this->list_->size();
 	//cout << "F: " << operation << " T: " << duration.count() << " nanoseconds, S: " << actualSize << endl;
-	zapis(this->fileName, operation, duration.count(), actualSize);
+	writeCSV(this->fileName, operation, duration.count(), actualSize);
 }
 
 void ListTest::index()
@@ -224,25 +223,11 @@ void ListTest::index()
 	duration = duration_cast<nanoseconds>(stop - start);
 	actualSize = this->list_->size();
 	//cout << "F: " << operation << " T: " << duration.count() << " nanoseconds, S: " << actualSize << endl;
-	zapis(this->fileName, operation, duration.count(), actualSize);
+	writeCSV(this->fileName, operation, duration.count(), actualSize);
 
 }
 
-
-
-/*
-void ListTest::zapis(string fileName, string operation, int trvanie, int sizeOf)
-{
-	ofstream file;
-	file.open(fileName, ios_base::app);
-	file << operation << ", " << trvanie << ", " << sizeOf << endl;
-	file.close();
-
-}
-*/
-
-
-void ListTest::vypis()
+void ListTest::print()
 {
 	for (size_t i = 0; i < this->list_->size(); i++)
 	{
@@ -250,10 +235,3 @@ void ListTest::vypis()
 	}
 	cout << endl;
 }
-
-
-
-
-
-
-
