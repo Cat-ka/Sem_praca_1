@@ -24,20 +24,17 @@ public:
 	void runTesting(char& scenario);
 	void makeOperation(int number);
 
-	void push();
-	void pop();
-	void peek();
-	PriorityQueue<int>& vyberADT(int adt, char scenar);
-	//void zapis(string fileName, string operation, int trvanie, int sizeOf);
-	void vypis();
+	
+	PriorityQueue<int>& chooseADT(int adt, char scenar);
+	void write();
 
 
 private:
 	PriorityQueue<int>* queue_;
-	ITest<int>* testujem;
+	ITest<int>* testing;
 	ScenarioPriorityQueue s_;
 
-	double pocetOpakovani = 100;
+	double numberOfRepeating = 100000;
 	int tempPush;
 	int tempPop;
 	int tempPeek;

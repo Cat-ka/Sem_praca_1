@@ -31,7 +31,7 @@ private:
 	int nColumns_;
 	int initValue_;
 	string fileName;
-	ITest<int>* testujem;
+	ITest<int>* testing;
 	Array2D<int>* array2D_;
 
 	std::chrono::steady_clock::time_point start;

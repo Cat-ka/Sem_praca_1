@@ -65,7 +65,7 @@ int main()
 	{
 		PriorityQueueTest* testujQueue = new PriorityQueueTest();
 		ScenarioPriorityQueue* vyberScenar = new ScenarioPriorityQueue(scenar);
-		testujQueue->vyberADT(adt, scenar);
+		testujQueue->chooseADT(adt, scenar);
 		testujQueue->runTesting(scenar);
 		delete vyberScenar;
 		delete testujQueue;
@@ -74,6 +74,7 @@ int main()
 	{
 		Array2D_test* testujArray = new Array2D_test();
 		testujArray->runTesting(adt, scenar);
+		delete testujArray;
 	}	
 	return 0;
 }

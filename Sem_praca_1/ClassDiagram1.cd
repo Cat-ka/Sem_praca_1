@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="ScenarioPriorityQueue">
+    <Position X="0.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAEBAUAgAACAAAAQAAAAIAAgAIAAAQgAAAKAAAAAAAA=</HashCode>
+      <FileName>testing\scenario\scenarioPriorityQueue.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PriorityQueueTest">
+    <Position X="3.75" Y="0.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAQCEAIACAAAAACgAABAAAABQAggBABAAUgAEAABAAA=</HashCode>
+      <FileName>testing\PriorityQueueTest.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

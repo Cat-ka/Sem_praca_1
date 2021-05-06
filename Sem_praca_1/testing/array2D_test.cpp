@@ -16,8 +16,8 @@ Array2D_test::~Array2D_test()
 {
 	delete this->array2D_;
 	this->array2D_ = nullptr;
-	delete this->testujem;
-	this->testujem = nullptr;
+	delete this->testing;
+	this->testing = nullptr;
 }
 
 void Array2D_test::nasobenie(Array2D<int>& first, Array2D<int>& second, Array2D<int>& result)
